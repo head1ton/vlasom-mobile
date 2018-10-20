@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, TextInput, StatusBar } from 'react-native';
+import PropTypes from 'prop-types';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, TextInput, StatusBar, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get("window");
@@ -11,11 +12,29 @@ const LoginScreen = props => (
             <Image source={require("../../assets/images/logo-large-red.png")} resizeMode="stretch" style={styles.logo} />
         </View>
         <View style={styles.content}>
-            <TextInput placeholder="username" style={styles.textInput} underlineColorAndroid={'transparent'} autoCapitalize={'none'} autoCorrect={false} />
-            <TextInput placeholder='password' style={styles.textInput} underlineColorAndroid={'transparent'} secureTextEntry={true} autoCorrect={false} />
-            <TouchableOpacity style={styles.touchable}>
+            <TextInput 
+            placeholder="username" 
+            style={styles.textInput} 
+            underlineColorAndroid={'transparent'} 
+            autoCapitalize={'none'} 
+            autoCorrect={false} 
+            value={props.username} 
+            onChangeText={props.changeUsername} 
+            />
+            <TextInput 
+            placeholder='password' 
+            style={styles.textInput} 
+            underlineColorAndroid={'transparent'} 
+            secureTextEntry={true} 
+            autoCorrect={false} 
+            value={props.password} 
+            onChangeText={props.changePassword} 
+            returnKeyType={'send'} 
+            onEndEditing={props.submit}
+            />
+            <TouchableOpacity style={styles.touchable} onPressOut={props.submit}>
                 <View style={styles.btn}>
-                    <Text style={styles.btnText}>Login</Text>
+                    {props.isSubmitting ? <ActivityIndicator size='small' color='white' /> : <Text style={styles.btnText}>Login</Text>}
                 </View>
             </TouchableOpacity>
             <View style={styles.row}>
@@ -54,6 +73,15 @@ const LoginScreen = props => (
         </View>
     </View>
 );
+
+LoginScreen.propTypes = {
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    isSubmitting: PropTypes.bool.isRequired,
+    changeUsername: PropTypes.func.isRequired,
+    changePassword: PropTypes.func.isRequired,
+    submit: PropTypes.func.isRequired
+}
 
 const styles =StyleSheet.create({
     container: {
