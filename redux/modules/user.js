@@ -5,6 +5,7 @@ import { Facebook } from 'expo';
 const LOG_IN = 'LOG_IN';
 const LOG_OUT = 'LOG_OUT';
 const SET_USER = 'SET_USER';
+const SET_NOTIFICATIONS = 'SET_NOTIFICATIONS';
 
 function setLogin(token){
     return {
@@ -23,6 +24,13 @@ function setUser(user){
     return {
         type: SET_USER,
         user
+    }
+}
+
+function setNotifications(notifications){
+    return {
+        type: SET_NOTIFICATIONS,
+        notifications
     }
 }
 
@@ -74,9 +82,6 @@ function usernameLogin(username, password){
             })
         })
         .then(response => {
-            /*if(!response.ok){
-                dispatch(setLoginError(true))
-            }*/
             return response.json()
         })
         .then(json => {
@@ -93,6 +98,42 @@ function usernameLogin(username, password){
     }
 }
 
+function getNotifications(){
+    return (dispatch, getState) => {
+        const { user: { token } } = getState();
+        fetch(`${API_URL}/notifications/`, {
+            headers: {
+                "Authorization": `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(logout());
+            }
+            return response.json();
+        })
+        .then(json => dispatch(setNotifications(json)));
+    }
+}
+
+function getMyProfile(){
+    return (dispatch, getState) => {
+        const { user: { token } } = getState();
+        fetch(`${API_URL}/users/my/profile/`, {
+            headers: {
+                "Authorization": `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(logout());
+            }
+            return response.json();
+        })
+        .then(json => dispatch(setUser(json)));
+    }
+}
+
 const initialState = {
     isLoggedIn: false
 }
@@ -105,6 +146,8 @@ function reducer(state = initialState, action){
             return applyLogout(state, action);
         case SET_USER:
             return applySetUser(state, action);
+        case SET_NOTIFICATIONS:
+            return applySetNotifications(state, action);
         default:
             return state
     }
@@ -136,10 +179,20 @@ function applySetUser(state, action){
     }
 }
 
+function applySetNotifications(state, action){
+    const { notifications } = action;
+    return {
+        ...state,
+        notifications
+    }
+}
+
 const actionCreators = {
     usernameLogin,
     facebookLogin,
-    logout
+    logout,
+    getNotifications,
+    getMyProfile
 };
 
 export { actionCreators };
