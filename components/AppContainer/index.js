@@ -5,6 +5,7 @@ const mapStateToProps = (state, ownProps) => {
     const { user } = state;
     return {
         isLoggedIn: user.isLoggedIn,
+        loginUser: user.loginUser
     }
 }
 
