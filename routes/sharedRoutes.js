@@ -4,11 +4,17 @@ import CommentScreen from '../screens/CommentScreen';
 import NavButton from '../components/NavButton';
 
 const sharedRoutes = {
-    Like: {
-        screen: LikeScreen
+    Likes: {
+        screen: LikeScreen,
+        navigationOptions: {
+            headerTitle: 'Likes'
+        }
     },
-    Comment: {
-        screen: CommentScreen
+    Comments: {
+        screen: CommentScreen,
+        navigationOptions: {
+            headerTitle: 'Comments'
+        }
     }
 };
 
