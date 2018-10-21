@@ -26,11 +26,14 @@ const TabNavigation = createBottomTabNavigator({
     },
     AddPhoto: {
         screen: View,
-        navigationOptions: {
+        navigationOptions: ({navigation}) => ({
             tabBarIcon: () => (
                 <Ionicons name='ios-add-circle-outline' size={30} color={'black'} />
-            )
-        }
+            ),
+            tabBarOnPress: () => {
+                navigation.navigate('TakePhoto')
+            }
+        })
     },
     Notification: {
         screen: NotificationRoute,
