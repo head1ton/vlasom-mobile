@@ -7,7 +7,7 @@ import { withNavigation } from 'react-navigation'
 const PhotoActions = props => (
     <View style={styles.container}>
         <View style={styles.actions}>
-            <TouchableOpacity onPressOut={props.handlePress}>
+            <TouchableOpacity onPressOut={props.handleLike}>
                 <View style={styles.action}>
                     <Ionicons name={props.isLiked ? "ios-heart" : 'ios-heart-outline'} size={30} color={props.isLiked ? '#d5426a' : 'black' } />
                 </View>
@@ -27,7 +27,7 @@ const PhotoActions = props => (
                     <Text style={styles.likes}>{props.commentCount} {props.commentCount === 1 ? 'comment' : 'comments'}</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPressOut={props.handleInterest}>
                 <View style={styles.action}>
                     <Ionicons name={props.isInterested ? "ios-book" : 'ios-book-outline'} size={30} color={props.isInterested ? '#d5426a' : 'black' } />
                 </View>
@@ -47,7 +47,8 @@ PhotoActions.propTypes = {
     isInterested: PropTypes.bool.isRequired,
     interestCount: PropTypes.number.isRequired,
     commentCount: PropTypes.number.isRequired,
-    handlePress: PropTypes.func.isRequired
+    handleLike: PropTypes.func.isRequired,
+    handleInterest: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({

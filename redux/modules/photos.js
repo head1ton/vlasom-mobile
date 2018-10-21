@@ -100,6 +100,52 @@ function unlikePhoto(photoId){
     }
 }
 
+function interestPhoto(photoId){
+    return (dispatch, getState) => {
+        const { user : { token } } = getState();
+        return fetch(`${API_URL}/images/interest/image/${photoId}/`, {
+            method: 'POST',
+            headers: {
+                "Authorization": `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            }
+            else if(response.ok){
+                return true
+            }
+            else{
+                return false
+            }
+        })
+    }
+}
+
+function uninterestPhoto(photoId){
+    return (dispatch, getState) => {
+        const { user : { token } } = getState();
+        return fetch(`${API_URL}/images/interest/image/${photoId}/`, {
+            method: 'DELETE',
+            headers: {
+                "Authorization": `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            }
+            else if(response.ok){
+                return true
+            }
+            else{
+                return false
+            }
+        })
+    }
+}
+
 const initialState = {
 
 }
@@ -135,7 +181,9 @@ const actionCreators = {
     getFeed,
     getSearch,
     likePhoto,
-    unlikePhoto
+    unlikePhoto,
+    interestPhoto,
+    uninterestPhoto
 }
 
 export { actionCreators }

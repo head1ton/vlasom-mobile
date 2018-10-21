@@ -36,7 +36,8 @@ const Photo = props => (
         likeCount={props.like_count} 
         isInterested={props.is_interested_image} 
         interestCount={props.interest_count_image} 
-        handlePress={props.dispatchLike} 
+        handleLike={props.dispatchLike} 
+        handleInterest={props.dispatchInterest} 
         commentCount={props.comment_count} 
         />
             <View style={styles.comment}>

@@ -4,7 +4,8 @@ import Photo from './presenter';
 
 class Container extends Component{
     static propTypes = {
-        dispatchLike: PropTypes.func.isRequired
+        dispatchLike: PropTypes.func.isRequired,
+        dispatchInterest: PropTypes.func.isRequired
     }
 
     render(){
