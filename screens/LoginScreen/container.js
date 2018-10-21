@@ -27,7 +27,7 @@ class Container extends Component{
         })
     }
 
-    _submit = () => {
+    _submit = async() => {
         const { username, password, isSubmitting } = this.state;
         const { usernameLogin } = this.props;
         if(!isSubmitting){
@@ -35,7 +35,13 @@ class Container extends Component{
                 this.setState({
                     isSubmitting: true
                 })
-                usernameLogin(username, password);
+                const loginResult = await usernameLogin(username, password);
+                if(!loginResult){
+                    Alert.alert('아이디와 비밀번호를 확인해주세요.');
+                    this.setState({
+                        isSubmitting: false
+                    })
+                }
             }
             else{
                 Alert.alert('아이디와 비밀번호를 입력해주세요.')

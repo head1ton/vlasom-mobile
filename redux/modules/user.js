@@ -26,8 +26,8 @@ function setUser(user){
 }
 
 function usernameLogin(username, password){
-    return function(dispatch){
-        fetch(`${API_URL}/rest-auth/login/`, {
+    return dispatch => {
+        return fetch(`${API_URL}/rest-auth/login/`, {
             method: 'POST',
             headers: {
                "Content-Type": "application/json"
@@ -44,11 +44,13 @@ function usernameLogin(username, password){
             return response.json()
         })
         .then(json => {
-            if(json.token){
-                dispatch(setLogin(json.token))
+            if(json.token && json.user){
+                dispatch(setLogin(json.token));
+                dispatch(setUser(json.user));
+                return true
             }
-            if(json.user){
-                dispatch(setUser(json.user))
+            else{
+                return false
             }
         })
         .catch(err => console.log(err));
