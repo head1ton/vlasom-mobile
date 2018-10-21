@@ -1,5 +1,6 @@
-import { API_URL } from '../../constants';
+import { API_URL, FB_APP_ID } from '../../constants';
 import { AsyncStorage } from'react-native';
+import { Facebook } from 'expo';
 
 const LOG_IN = 'LOG_IN';
 const LOG_OUT = 'LOG_OUT';
@@ -23,6 +24,41 @@ function setUser(user){
         type: SET_USER,
         user
     }
+}
+
+function facebookLogin(){
+    return async dispatch => {
+        const { type, token } = await Facebook.logInWithReadPermissionsAsync(FB_APP_ID,{
+            permissions: ['public_profile', 'email']
+        })
+        if(type === 'success'){
+            return fetch(`${API_URL}/users/login/facebook/`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    access_token: token
+                })
+            })
+            .then(response => {
+                /*if(!response.ok){
+                    dispatch(setLoginError(true))
+                }*/
+                return response.json()
+            })
+            .then(json => {
+                if(json.token && json.user){
+                    dispatch(setLogin(json.token));
+                    dispatch(setUser(json.user));
+                    return true
+                }
+                else{
+                    return false
+                }
+            })
+        }
+   };
 }
 
 function usernameLogin(username, password){
@@ -101,7 +137,8 @@ function applySetUser(state, action){
 }
 
 const actionCreators = {
-    usernameLogin
+    usernameLogin,
+    facebookLogin
 };
 
 export { actionCreators };

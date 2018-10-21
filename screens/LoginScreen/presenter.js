@@ -64,7 +64,7 @@ const LoginScreen = props => (
                     </View>
                 </View>
             </View>
-            <TouchableOpacity style={styles.fbContainer}>
+            <TouchableOpacity style={styles.fbContainer} onPressOut={props.facebookLogin}>
                 <View style={styles.fbView}>
                     <Ionicons name='logo-facebook' size={22} color="#d5264a" />
                     <Text style={styles.fbText}>Login with Facebook</Text>
@@ -80,7 +80,8 @@ LoginScreen.propTypes = {
     isSubmitting: PropTypes.bool.isRequired,
     changeUsername: PropTypes.func.isRequired,
     changePassword: PropTypes.func.isRequired,
-    submit: PropTypes.func.isRequired
+    submit: PropTypes.func.isRequired,
+    facebookLogin: PropTypes.func.isRequired
 }
 
 const styles =StyleSheet.create({
