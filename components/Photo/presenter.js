@@ -31,7 +31,14 @@ const Photo = props => (
             />
         </FadeIn>
         <View style={styles.photoMeta}>
-        <PhotoActions isLiked={props.is_liked} likeCount={props.like_count} />
+        <PhotoActions 
+        isLiked={props.is_liked} 
+        likeCount={props.like_count} 
+        isInterested={props.is_interested_image} 
+        interestCount={props.interest_count_image} 
+        handlePress={props.dispatchLike} 
+        commentCount={props.comment_count} 
+        />
             <View style={styles.comment}>
                 <Text style={styles.commentNickname}>
                     {props.user.nickname}

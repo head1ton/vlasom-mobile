@@ -7,9 +7,14 @@ import { withNavigation } from 'react-navigation'
 const PhotoActions = props => (
     <View style={styles.container}>
         <View style={styles.actions}>
-            <TouchableOpacity>
+            <TouchableOpacity onPressOut={props.handlePress}>
                 <View style={styles.action}>
-                    <Ionicons name={props.is_liked ? "ios-heart" : 'ios-heart-outline'} size={30} color={props.is_liked ? '#d5426a' : 'black' } />
+                    <Ionicons name={props.isLiked ? "ios-heart" : 'ios-heart-outline'} size={30} color={props.isLiked ? '#d5426a' : 'black' } />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPressOut={() => props.navigation.navigate('Likes')}>
+                <View>
+                    <Text style={styles.likes}>{props.likeCount} {props.likeCount === 1 ? 'like' : 'likes'}</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPressOut={() => props.navigation.navigate('Comments')}>
@@ -17,23 +22,32 @@ const PhotoActions = props => (
                     <Ionicons name={'ios-text-outline'} size={30} color={'black'} />
                 </View>
             </TouchableOpacity>
+            <TouchableOpacity onPressOut={() => props.navigation.navigate('Comments')}>
+                <View>
+                    <Text style={styles.likes}>{props.commentCount} {props.commentCount === 1 ? 'comment' : 'comments'}</Text>
+                </View>
+            </TouchableOpacity>
             <TouchableOpacity>
                 <View style={styles.action}>
-                    <Ionicons name={props.is_liked ? "ios-book" : 'ios-book-outline'} size={30} color={props.is_liked ? '#d5426a' : 'black' } />
+                    <Ionicons name={props.isInterested ? "ios-book" : 'ios-book-outline'} size={30} color={props.isInterested ? '#d5426a' : 'black' } />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPressOut={() => props.navigation.navigate('Likes')}>
+                <View>
+                    <Text style={styles.likes}>{props.interestCount} {props.interestCount === 1 ? 'interest' : 'interests'}</Text>
                 </View>
             </TouchableOpacity>
         </View>
-        <TouchableOpacity onPressOut={() => props.navigation.navigate('Likes')}>
-            <View>
-                <Text style={styles.likes}>{props.likeCount} {props.likeCount === 1 ? 'like' : 'likes'}</Text>
-            </View>
-        </TouchableOpacity>
     </View>
 )
 
 PhotoActions.propTypes = {
     isLiked: PropTypes.bool.isRequired,
-    likeCount: PropTypes.number.isRequired
+    likeCount: PropTypes.number.isRequired,
+    isInterested: PropTypes.bool.isRequired,
+    interestCount: PropTypes.number.isRequired,
+    commentCount: PropTypes.number.isRequired,
+    handlePress: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({
@@ -41,14 +55,16 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     actions: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     action: {
         marginRight: 10
     },
     likes: {
         fontWeight: '600',
-        fontSize: 14
+        fontSize: 14,
+        marginRight: 10
     }
 })
 
