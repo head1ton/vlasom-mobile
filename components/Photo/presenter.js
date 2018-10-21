@@ -32,13 +32,13 @@ const Photo = props => (
         </FadeIn>
         <View style={styles.photoMeta}>
         <PhotoActions 
-        isLiked={props.is_liked} 
-        likeCount={props.like_count} 
-        isInterested={props.is_interested_image} 
-        interestCount={props.interest_count_image} 
-        handleLike={props.dispatchLike} 
-        handleInterest={props.dispatchInterest} 
-        commentCount={props.comment_count} 
+        isLiked={props.isLiked} 
+        likeCount={props.likeCount} 
+        isInterested={props.isInterested} 
+        interestCount={props.interestCount} 
+        handleLike={props.handleLike} 
+        handleInterest={props.handleInterest} 
+        commentCount={props.commentCount} 
         />
             <View style={styles.comment}>
                 <Text style={styles.commentNickname}>
@@ -93,7 +93,9 @@ Photo.propTypes = {
         profile_image: PropTypes.string,
         nickname: PropTypes.string.isRequired
     }).isRequired,
-    is_vertical: PropTypes.bool.isRequired
+    is_vertical: PropTypes.bool.isRequired,
+    handleLike: PropTypes.func.isRequired,
+    handleInterest: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({
