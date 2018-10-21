@@ -14,9 +14,9 @@ const sharedRoutes = {
 
 const sharedOptions = {
     navigationOptions: {
-        headerLeft: props => <NavButton {...props} iconName={"ios-arrow-back"} />,
+        headerLeft: props => <NavButton {...props} iconName={"ios-arrow-back"} color={'white'} />,
         headerStyle: {
-            backgroundColor: '#ffffff'
+            backgroundColor: '#d5426a'
         }
     }
 };

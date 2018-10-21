@@ -12,7 +12,7 @@ const TabNavigation = createBottomTabNavigator({
         screen: HomeRoute,
         navigationOptions: {
             tabBarIcon: ({focused}) => (
-                <Ionicons name={focused ? 'ios-home' : 'ios-home-outline'} size={30} color={'black'} />
+                <Ionicons name={focused ? 'ios-home' : 'ios-home-outline'} size={30} color={'white'} />
             )
         }
     },
@@ -20,7 +20,7 @@ const TabNavigation = createBottomTabNavigator({
         screen: SearchRoute,
         navigationOptions: {
             tabBarIcon: ({focused}) => (
-                <Ionicons name={focused ? 'ios-search' : 'ios-search-outline'} size={30} color={'black'} />
+                <Ionicons name={focused ? 'ios-search' : 'ios-search-outline'} size={30} color={'white'} />
             )
         }
     },
@@ -28,7 +28,7 @@ const TabNavigation = createBottomTabNavigator({
         screen: View,
         navigationOptions: ({navigation}) => ({
             tabBarIcon: () => (
-                <Ionicons name='ios-add-circle-outline' size={30} color={'black'} />
+                <Ionicons name='ios-add-circle-outline' size={30} color={'white'} />
             ),
             tabBarOnPress: () => {
                 navigation.navigate('TakePhoto')
@@ -39,7 +39,7 @@ const TabNavigation = createBottomTabNavigator({
         screen: NotificationRoute,
         navigationOptions: {
             tabBarIcon: ({focused}) => (
-                <Ionicons name={focused ? 'ios-heart' : 'ios-heart-outline'} size={30} color={'black'} />
+                <Ionicons name={focused ? 'ios-heart' : 'ios-heart-outline'} size={30} color={'white'} />
             )
         }
     },
@@ -47,7 +47,7 @@ const TabNavigation = createBottomTabNavigator({
         screen: ProfileRoute,
         navigationOptions: {
             tabBarIcon: ({focused}) => (
-                <Ionicons name={focused ? 'ios-person' : 'ios-person-outline'} size={30} color={'black'} />
+                <Ionicons name={focused ? 'ios-person' : 'ios-person-outline'} size={30} color={'white'} />
             )
         }
     }
@@ -57,7 +57,7 @@ const TabNavigation = createBottomTabNavigator({
     tabBarOptions: {
         showLabel: false,
         style: {
-            backgroundColor: '#ffffff',
+            backgroundColor: '#d5426a',
             height: 50
         }
     }

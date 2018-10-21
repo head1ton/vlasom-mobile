@@ -57,6 +57,8 @@ class App extends React.Component {
         require('./assets/images/nav-nickname.png'),
         require('./assets/images/profile-red.png'),
         require('./assets/images/search.png'),
+        require('./assets/images/logo-text.png'),
+        require('./assets/images/logo-text-white.png'),
       ]),
       Font.loadAsync({
         ...Ionicons.font,

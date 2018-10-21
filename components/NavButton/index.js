@@ -6,14 +6,15 @@ import { Ionicons } from '@expo/vector-icons';
 const NavButton = props => (
     <TouchableWithoutFeedback onPressOut={props.onPress}>
         <View style={styles.container}>
-            <Ionicons name={props.iconName} color={'black'} size={30} />
+            <Ionicons name={props.iconName} color={props.color} size={30} />
         </View>
     </TouchableWithoutFeedback>
 );
 
 NavButton.propTypes = {
     onPress: PropTypes.func.isRequired,
-    iconName: PropTypes.string.isRequired
+    iconName: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired
 };
 
 const styles = StyleSheet.create({
