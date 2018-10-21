@@ -13,7 +13,7 @@ function setLogin(token){
     }
 };
 
-function setLogout(){
+function logout(){
     return {
         type: LOG_OUT
     }
@@ -138,7 +138,8 @@ function applySetUser(state, action){
 
 const actionCreators = {
     usernameLogin,
-    facebookLogin
+    facebookLogin,
+    logout
 };
 
 export { actionCreators };
