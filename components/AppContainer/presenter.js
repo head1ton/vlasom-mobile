@@ -23,7 +23,7 @@ class AppContainer extends Component {
         <View style={styles.container}>
         <StatusBar hidden={false} />
             {isLoggedIn && loginUser ? 
-            <RootNavigation screenProps={{username: loginUser.username}} />
+            <RootNavigation screenProps={{nickname: loginUser.nickname}} />
              : 
              <LoggedOutNavigation />}
         </View>)

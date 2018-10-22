@@ -9,7 +9,8 @@ class Container extends Component{
     }
 
     state = {
-        isFetching: true
+        isFetching: true,
+        mode: 'upload'
     }
 
     componentDidMount(){
@@ -30,11 +31,29 @@ class Container extends Component{
     }
 
     render(){
-        const { isFetching } = this.state;
+        const { isFetching, mode } = this.state;
         console.log(this.props.profile);
         return (
-            <Profile {...this.props} isFetching={isFetching} />
+            <Profile {...this.props} mode={mode} isFetching={isFetching} changeToUpload={this._changeToUpload} changeToInterest={this._changeToInterest} changeToMore={this._changeToMore} />
         )
+    }
+
+    _changeToUpload = () => {
+        this.setState({
+            mode: 'upload'
+        })
+    }
+
+    _changeToInterest = () => {
+        this.setState({
+            mode: 'interest'
+        })
+    }
+
+    _changeToMore = () => {
+        this.setState({
+            mode: 'more'
+        })
     }
 }
 
