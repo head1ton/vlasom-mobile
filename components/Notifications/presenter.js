@@ -23,10 +23,10 @@ const Notifications = props => (
             {props.notification_type === 'comment' && ` 님이 회원님의 사진에 댓글을 남겼습니다 :${"\n"}"${props.comment}"`}
         </Text>
         {props.notification_type === 'follow' && (
-        <TouchableOpacity onPressOut={() => {}} style={props.from_user.following ? styles.unfollow : styles.follow}>
+        <TouchableOpacity onPressOut={props.handleFollowPress} style={props.isFollowing ? styles.unfollow : styles.follow}>
             <View style={styles.btn}>
                 <Text style={styles.btnText}>
-                {props.from_user.following ? "Unfollow" : "Follow"}
+                {props.isFollowing ? "Unfollow" : "Follow"}
                 </Text>
             </View>
         </TouchableOpacity>
@@ -94,7 +94,9 @@ Notifications.propTypes = {
         nickname: PropTypes.string.isRequired,
         profile_image: PropTypes.string,
         username: PropTypes.string.isRequired
-    }).isRequired
+    }).isRequired,
+    isFollowing: PropTypes.bool.isRequired,
+    handleFollowPress: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({
