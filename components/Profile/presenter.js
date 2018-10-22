@@ -85,6 +85,24 @@ const Profile = props => (
                 {props.profile.images ? props.profile.images.map(photo => <Photo key={photo.id} {...photo} />) : <Text style={styles.notFound}>업로드한 이미지가 없습니다.</Text>}
             </View>
         )}
+        {props.mode === 'interest' && (
+            <View style={styles.squaerContainer}>
+                {props.profile.interest_set && props.profile.interest_set.map(interest => {
+                    if(interest.image){
+                        return <SquarePhoto key={interest.image.id} imageURL={interest.image.image} />
+                    }
+                }) }
+            </View>
+        )}
+        {props.mode === 'interest_grid' && (
+            <View style={styles.gridContainer}>
+                {props.profile.interest_set && props.profile.interest_set.map(interest => {
+                    if(interest.image){
+                        return <Photo key={interest.image.id} {...interest.image} />
+                    }
+                })}
+            </View>
+        )}
     </ScrollView>
     </View>
 )
@@ -203,17 +221,39 @@ Profile.propTypes = {
         id: PropTypes.number.isRequired,
         images: PropTypes.arrayOf(
             PropTypes.shape({
-                id: PropTypes.number.isRequired,
-                image: PropTypes.string.isRequired,
                 category: PropTypes.shape({
                     id: PropTypes.number.isRequired,
-                    name: PropTypes.string.isRequired,
+                    interest_count_category: PropTypes.number.isRequired,
                     is_interested_category: PropTypes.bool.isRequired,
-                    interest_count_category: PropTypes.number.isRequired
-                }),
+                    name: PropTypes.string.isRequired
+                }).isRequired,
                 comment_count: PropTypes.number.isRequired,
+                comments: PropTypes.arrayOf(
+                    PropTypes.shape({
+                        id: PropTypes.number.isRequired,
+                        message: PropTypes.string.isRequired,
+                        user: PropTypes.shape({
+                            id: PropTypes.number.isRequired,
+                        profile_image: PropTypes.string,
+                        nickname: PropTypes.string.isRequired
+                        })
+                })),
+                description: PropTypes.string,
+                id: PropTypes.number.isRequired,
+                image: PropTypes.string.isRequired,
+                interest_count_image: PropTypes.number.isRequired,
+                is_interested_image: PropTypes.bool.isRequired,
+                is_liked: PropTypes.bool.isRequired,
                 like_count: PropTypes.number.isRequired,
-                interest_count_image: PropTypes.number.isRequired
+                location: PropTypes.string.isRequired,
+                natural_time: PropTypes.string.isRequired,
+                tags: PropTypes.array,
+                user: PropTypes.shape({
+                    id: PropTypes.number.isRequired,
+                    profile_image: PropTypes.string,
+                    nickname: PropTypes.string.isRequired
+                }).isRequired,
+                is_vertical: PropTypes.bool.isRequired
             })
         ),
         name: PropTypes.string.isRequired,
@@ -223,7 +263,58 @@ Profile.propTypes = {
         profile_image: PropTypes.string,
         username: PropTypes.string.isRequired,
         following: PropTypes.bool.isRequired,
-        is_self: PropTypes.bool.isRequired
+        is_self: PropTypes.bool.isRequired,
+        interest_set: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                user: PropTypes.shape({
+                    id: PropTypes.number.isRequired,
+                    nickname: PropTypes.string.isRequired,
+                    profile_image: PropTypes.string
+                }).isRequired,
+                image: PropTypes.shape({
+                    category: PropTypes.shape({
+                        id: PropTypes.number.isRequired,
+                        interest_count_category: PropTypes.number.isRequired,
+                        is_interested_category: PropTypes.bool.isRequired,
+                        name: PropTypes.string.isRequired
+                    }).isRequired,
+                    comment_count: PropTypes.number.isRequired,
+                    comments: PropTypes.arrayOf(
+                        PropTypes.shape({
+                            id: PropTypes.number.isRequired,
+                            message: PropTypes.string.isRequired,
+                            user: PropTypes.shape({
+                                id: PropTypes.number.isRequired,
+                            profile_image: PropTypes.string,
+                            nickname: PropTypes.string.isRequired
+                            })
+                    })),
+                    description: PropTypes.string,
+                    id: PropTypes.number.isRequired,
+                    image: PropTypes.string.isRequired,
+                    interest_count_image: PropTypes.number.isRequired,
+                    is_interested_image: PropTypes.bool.isRequired,
+                    is_liked: PropTypes.bool.isRequired,
+                    like_count: PropTypes.number.isRequired,
+                    location: PropTypes.string.isRequired,
+                    natural_time: PropTypes.string.isRequired,
+                    tags: PropTypes.array,
+                    user: PropTypes.shape({
+                        id: PropTypes.number.isRequired,
+                        profile_image: PropTypes.string,
+                        nickname: PropTypes.string.isRequired
+                    }).isRequired,
+                    is_vertical: PropTypes.bool.isRequired
+                }),
+                category: PropTypes.shape({
+                    id: PropTypes.number.isRequired,
+                    name: PropTypes.string.isRequired,
+                    is_interested_category: PropTypes.bool.isRequired,
+                    interest_count_category: PropTypes.number.isRequired
+                })
+            })
+        )
     }).isRequired,
     changeToUpload: PropTypes.func.isRequired,
     changeToInterest: PropTypes.func.isRequired,
