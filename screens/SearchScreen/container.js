@@ -17,7 +17,7 @@ class Container extends Component{
     }
 
     static propTypes = {
-        getEmptyFeed: PropTypes.func.isRequired,
+        getEmptySearch: PropTypes.func.isRequired,
         searchTag: PropTypes.func.isRequired,
         search: PropTypes.array
     }
@@ -45,19 +45,26 @@ class Container extends Component{
 
     _submitSearch = (text) => {
         const { searchingBy } = this.state;
-        const { searchTag } = this.props;
+        const { searchTag, getEmptySearch } = this.props;
         this.setState({
             searchingBy: text,
             isFetching: true
         });
-        searchTag(text);
+        if(text === ""){
+            console.log('empty')
+            getEmptySearch();
+        }
+        else{
+            console.log('no')
+            searchTag(text);
+        }
     }
 
     _refresh = () => {
         const { searchingBy } = this.state;
-        const { getEmptyFeed, searchTag } = this.props;
+        const { getEmptySearch, searchTag } = this.props;
         if(searchingBy === ""){
-            getEmptyFeed();
+            getEmptySearch();
         }
         else{
             searchTag(searchingBy);
