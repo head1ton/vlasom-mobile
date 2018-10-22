@@ -34,7 +34,7 @@ class Container extends Component{
         const { isFetching, mode } = this.state;
         console.log(this.props.profile);
         return (
-            <Profile {...this.props} mode={mode} isFetching={isFetching} changeToUpload={this._changeToUpload} changeToInterest={this._changeToInterest} changeToMore={this._changeToMore} />
+            <Profile {...this.props} mode={mode} isFetching={isFetching} changeToUpload={this._changeToUpload} changeToInterest={this._changeToInterest} changeToUploadGrid={this._changeToUploadGrid} changeToInterestGrid={this._changeTointerestGrid} />
         )
     }
 
@@ -50,9 +50,15 @@ class Container extends Component{
         })
     }
 
-    _changeToMore = () => {
+    _changeToUploadGrid = () => {
         this.setState({
-            mode: 'more'
+            mode: 'upload_grid'
+        })
+    }
+
+    _changeTointerestGrid = () => {
+        this.setState({
+            mode: 'interest_grid'
         })
     }
 }

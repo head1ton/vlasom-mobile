@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { View, Text, ScrollView, RefreshControl, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import FadeIn from 'react-native-fade-in-image';
+import SquarePhoto from '../SquarePhoto';
+import Photo from '../Photo';
 
 const { width, height } = Dimensions.get('window');
 
@@ -54,20 +56,35 @@ const Profile = props => (
         <View style={styles.modeBar}>
             <TouchableOpacity onPressOut={props.changeToUpload}>
                 <View>
-                    <Ionicons name={props.mode === 'upload' ? 'ios-albums' : 'ios-albums-outline'} size={30} />
+                    <Ionicons name={'ios-albums-outline'} size={30} color={props.mode === 'upload' ? '#d5426a' : 'black'} />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPressOut={props.changeToUploadGrid}>
+                <View>
+                    <Ionicons name={'ios-albums'} size={30} color={props.mode === 'upload_grid' ? '#d5426a' : 'black'} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPressOut={props.changeToInterest}>
                 <View>
-                    <Ionicons name={props.mode === 'interest' ? 'ios-book' : 'ios-book-outline'} size={30} />
+                    <Ionicons name={'ios-book-outline'} size={30} color={props.mode === 'interest' ? '#d5426a' : 'black'} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPressOut={props.changeToMore}>
+            <TouchableOpacity onPressOut={props.changeToInterestGrid}>
                 <View>
-                    <Ionicons name={props.mode === 'more' ? 'ios-apps' : 'ios-apps-outline'} size={30} />
+                    <Ionicons name={'ios-book'} size={30} color={props.mode === 'interest_grid' ? '#d5426a' : 'black'} />
                 </View>
             </TouchableOpacity>
         </View>
+        {props.mode === 'upload' && (
+            <View style={styles.squaerContainer}>
+                {props.profile.images ? props.profile.images.map(photo => <SquarePhoto key={photo.id} imageURL={photo.image} />) : <Text style={styles.notFound}>업로드한 이미지가 없습니다.</Text>}
+            </View>
+        )}
+        {props.mode === 'upload_grid' && (
+            <View style={styles.gridContainer}>
+                {props.profile.images ? props.profile.images.map(photo => <Photo key={photo.id} {...photo} />) : <Text style={styles.notFound}>업로드한 이미지가 없습니다.</Text>}
+            </View>
+        )}
     </ScrollView>
     </View>
 )
@@ -132,7 +149,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#d5426a',
         borderRadius: 5,
         width: width/3,
-        alignItems: 'center',
+        alignItems: 'center', 
         padding: 10
     },
     btnGrey: {
@@ -151,9 +168,24 @@ const styles = StyleSheet.create({
         borderTopColor: '#c0c1c2',
         borderTopWidth: 1,
         marginTop: 20,
-        paddingTop: 10,
+        paddingVertical: 10,
         paddingHorizontal: 60,
         justifyContent: 'space-between',
+    },
+    squaerContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
+    notFound: {
+        fontWeight: '600',
+        fontSize: 20,
+        textAlign: 'center',
+        marginTop: 50,
+        flex: 1
+    },
+    gridContainer: {
+        flex: 1,
+        backgroundColor: 'white'
     }
 })
 
@@ -177,11 +209,11 @@ Profile.propTypes = {
                     id: PropTypes.number.isRequired,
                     name: PropTypes.string.isRequired,
                     is_interested_category: PropTypes.bool.isRequired,
-                    interested_count_category: PropTypes.number.isRequired
+                    interest_count_category: PropTypes.number.isRequired
                 }),
                 comment_count: PropTypes.number.isRequired,
                 like_count: PropTypes.number.isRequired,
-                interested_count_image: PropTypes.number.isRequired
+                interest_count_image: PropTypes.number.isRequired
             })
         ),
         name: PropTypes.string.isRequired,
@@ -195,7 +227,8 @@ Profile.propTypes = {
     }).isRequired,
     changeToUpload: PropTypes.func.isRequired,
     changeToInterest: PropTypes.func.isRequired,
-    changeToMore: PropTypes.func.isRequired,
+    changeToUploadGrid: PropTypes.func.isRequired,
+    changeToInterestGrid: PropTypes.func.isRequired,
     mode: PropTypes.string.isRequired
 }
 
