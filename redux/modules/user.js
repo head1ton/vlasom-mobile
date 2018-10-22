@@ -112,7 +112,23 @@ function getNotifications(){
             }
             return response.json();
         })
-        .then(json => dispatch(setNotifications(json)));
+        .then(json => {
+            dispatch(setNotifications(json))
+        })
+        .then(
+            fetch(`${API_URL}/notifications/update/`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `JWT ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if(response.status === 401){
+                    dispatch(logout());
+                }
+            })
+        )
     }
 }
 

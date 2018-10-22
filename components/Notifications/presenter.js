@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import FitImage from 'react-native-fit-image';
+import FadeIn from 'react-native-fade-in-image';
 
 const { width, height } = Dimensions.get('window');
 
 const Notifications = props => (
     <View style={props.is_viewed ? styles.containerAfter : styles.containerBefore }>
         <TouchableOpacity onPressOut={() => props.navigation.navigate('ProfileDetail', {user: props.from_user})}>
-                <FitImage source={props.from_user.profile_image ? {uri: props.from_user.profile_image} : require('../../assets/images/profile-red.png')} style={styles.profile} defaultSource={require('../../assets/images/profile-red.png')} />
+            <FadeIn>
+                <Image source={props.from_user.profile_image ? {uri: props.from_user.profile_image} : require('../../assets/images/profile-red.png')} style={styles.profile} defaultSource={require('../../assets/images/profile-red.png')} />
+            </FadeIn>
         </TouchableOpacity>
         <Text style={styles.content}>
         {props.from_user.id === props.to_user.id ? '회원' : 
@@ -40,17 +42,23 @@ const Notifications = props => (
         )}
         {props.notification_type === 'like' && (
         <TouchableOpacity onpressOut={() => {}}>
-                <FitImage source={{uri: props.image.image}} style={styles.image} />
+            <FadeIn>
+                <Image source={{uri: props.image.image}} style={styles.image} />
+            </FadeIn>
         </TouchableOpacity> 
         )}
         {props.notification_type === 'comment' && (
         <TouchableOpacity onpressOut={() => {}}>
-                <FitImage source={{uri: props.image.image}} style={styles.image} />
+            <FadeIn>
+                <Image source={{uri: props.image.image}} style={styles.image} />
+            </FadeIn>
         </TouchableOpacity> 
         )}
         {props.notification_type === 'interest' && props.category === null  && (
         <TouchableOpacity onpressOut={() => {}}>
-                <FitImage source={{uri: props.image.image}} style={styles.image} />
+            <FadeIn>
+                <Image source={{uri: props.image.image}} style={styles.image} />
+            </FadeIn>
         </TouchableOpacity> 
         )}
     </View>
