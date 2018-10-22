@@ -51,7 +51,9 @@ Profile.propTypes = {
         notification_count: PropTypes.number.isRequired,
         post_count: PropTypes.number.isRequired,
         profile_image: PropTypes.string,
-        username: PropTypes.string.isRequired
+        username: PropTypes.string.isRequired,
+        following: PropTypes.bool.isRequired,
+        is_self: PropTypes.bool.isRequired
     }).isRequired
 }
 
