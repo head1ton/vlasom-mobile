@@ -41,21 +41,21 @@ const Notifications = props => (
         </TouchableOpacity>
         )}
         {props.notification_type === 'like' && (
-        <TouchableOpacity onpressOut={() => {}}>
+        <TouchableOpacity onPressOut={() => props.navigation.navigate('Photo')}>
             <FadeIn>
                 <Image source={{uri: props.image.image}} style={styles.image} />
             </FadeIn>
         </TouchableOpacity> 
         )}
         {props.notification_type === 'comment' && (
-        <TouchableOpacity onpressOut={() => {}}>
+        <TouchableOpacity onPressOut={() => props.navigation.navigate('Photo')}>
             <FadeIn>
                 <Image source={{uri: props.image.image}} style={styles.image} />
             </FadeIn>
         </TouchableOpacity> 
         )}
         {props.notification_type === 'interest' && props.category === null  && (
-        <TouchableOpacity onpressOut={() => {}}>
+        <TouchableOpacity onPressOut={() => props.navigation.navigate('Photo')}>
             <FadeIn>
                 <Image source={{uri: props.image.image}} style={styles.image} />
             </FadeIn>
