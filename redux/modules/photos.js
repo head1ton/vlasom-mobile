@@ -39,7 +39,25 @@ function getFeed(){
 function getSearch(){
     return (dispatch, getState) => {
         const { user: { token } } = getState();
-        fetch(`${API_URL}/images/search`, {
+        fetch(`${API_URL}/images/search/`, {
+            headers: {
+                "Authorization": `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            }
+            return response.json();
+        })
+        .then(json => dispatch(setSearch(json)));
+    }
+}
+
+function searchByTag(tag){
+    return (dispatch, getState) => {
+        const { user: { token } } = getState();
+        fetch(`${API_URL}/images/search/?tags=${tag}`, {
             headers: {
                 "Authorization": `JWT ${token}`
             }
@@ -183,7 +201,8 @@ const actionCreators = {
     likePhoto,
     unlikePhoto,
     interestPhoto,
-    uninterestPhoto
+    uninterestPhoto,
+    searchByTag
 }
 
 export { actionCreators }
