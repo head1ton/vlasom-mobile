@@ -30,9 +30,9 @@ const Profile = props => (
                 </View>
                 ) : (
                 <View style={styles.btnContainer}>
-                    <TouchableOpacity>
-                        <View style={props.profile.following ? styles.btnGrey : styles.btn}>
-                            <Text style={styles.btnText}>{props.profile.following ? 'Unfollow' : 'Follow'}</Text>
+                    <TouchableOpacity onPressOut={props.handleFollowPress}>
+                        <View style={props.isFollowing ? styles.btnGrey : styles.btn}>
+                            <Text style={styles.btnText}>{props.isFollowing ? 'Unfollow' : 'Follow'}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
 
 Profile.propTypes = {
     isFetching: PropTypes.bool.isRequired,
+    isFollowing: PropTypes.bool.isRequired,
     refresh: PropTypes.func.isRequired,
     profile: PropTypes.shape({
         birth_day: PropTypes.string,
@@ -332,7 +333,8 @@ Profile.propTypes = {
     changeToUploadGrid: PropTypes.func.isRequired,
     changeToInterestGrid: PropTypes.func,
     mode: PropTypes.string.isRequired,
-    showActionSheet: PropTypes.func.isRequired
+    showActionSheet: PropTypes.func.isRequired,
+    handleFollowPress: PropTypes.func.isRequired
 }
 
 export default Profile;
