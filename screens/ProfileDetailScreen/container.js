@@ -16,7 +16,6 @@ class Container extends Component{
 
     componentDidMount(){
         this._getUserProfile();
-        console.log(this.state)
     }
 
     render(){
