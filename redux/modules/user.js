@@ -150,6 +150,26 @@ function getMyProfile(){
     }
 }
 
+function getUserProfile(username){
+    return (dispatch, getState) => {
+        const { user: { token } } = getState();
+        return fetch(`${API_URL}/users/${username}/`, {
+            headers: {
+                "Authorization": `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(logout());
+            }
+            return response.json();
+        })
+        .then(json => {
+            return json
+        });
+    }
+}
+
 function followUser(userId){
     return (dispatch, getState) => {
         const { user : { token } } = getState();
@@ -256,7 +276,8 @@ const actionCreators = {
     getNotifications,
     getMyProfile,
     followUser,
-    unfollowUser
+    unfollowUser,
+    getUserProfile
 };
 
 export { actionCreators };

@@ -19,6 +19,7 @@ class Container extends Component{
     }
 
     render(){
+        console.log(this.props.user)
         return (
             <Photo handleLike={this._handleLike} handleInterest={this._handleInterest} {...this.props} {...this.state} />
         )
