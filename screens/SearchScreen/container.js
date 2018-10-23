@@ -16,6 +16,10 @@ class Container extends Component{
         isFetching: false
     }
 
+    static defaultProps = {
+        search: []
+    }
+
     static propTypes = {
         getEmptySearch: PropTypes.func.isRequired,
         searchTag: PropTypes.func.isRequired,
