@@ -12,7 +12,7 @@ const Profile = props => (
     <View style={styles.container}>
     <ScrollView refreshControl={<RefreshControl refreshing={props.isFetching} onRefresh={props.refresh} tintColor={'black'} />} >
         <View style={styles.infoContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPressOut={props.showActionSheet}>
                 <FadeIn>
                     <Image style={styles.profileImage} source={props.profile.profile_image ? {uri: props.profile.profile_image} : require('../../assets/images/profile-red.png')} defaultSource={require('../../assets/images/profile-red.png')} />
                 </FadeIn>
@@ -331,7 +331,8 @@ Profile.propTypes = {
     changeToInterest: PropTypes.func,
     changeToUploadGrid: PropTypes.func.isRequired,
     changeToInterestGrid: PropTypes.func,
-    mode: PropTypes.string.isRequired
+    mode: PropTypes.string.isRequired,
+    showActionSheet: PropTypes.func.isRequired
 }
 
 export default Profile;

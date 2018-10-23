@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import Profile from './presenter';
+import ActionSheet from 'react-native-actionsheet';
+
+const options = ['Cancel', 'Logout']
+const CANCEL_INDEX = 0;
+const DESTRUCTIVE_INDEX = 1;
 
 class Container extends Component{
     static propTypes = {
         profile: PropTypes.object.isRequired,
-        refresh: PropTypes.func.isRequired
+        refresh: PropTypes.func.isRequired,
+        logout: PropTypes.func.isRequired
     }
 
     state = {
@@ -34,7 +41,10 @@ class Container extends Component{
         const { isFetching, mode } = this.state;
         console.log(this.props.profile);
         return (
-            <Profile {...this.props} mode={mode} isFetching={isFetching} changeToUpload={this._changeToUpload} changeToInterest={this._changeToInterest} changeToUploadGrid={this._changeToUploadGrid} changeToInterestGrid={this._changeTointerestGrid} />
+            <View style={{flex: 1}}>
+                <Profile {...this.props} mode={mode} isFetching={isFetching} showActionSheet={this._showActionSheet} changeToUpload={this._changeToUpload} changeToInterest={this._changeToInterest} changeToUploadGrid={this._changeToUploadGrid} changeToInterestGrid={this._changeTointerestGrid} />
+                <ActionSheet ref={actionSheet => (this.actionSheet = actionSheet)} options={options} cancelButtonIndex={CANCEL_INDEX} destructiveButtonIndex={DESTRUCTIVE_INDEX} onPress={this._handleSheetPress} />
+            </View>
         )
     }
 
@@ -60,6 +70,20 @@ class Container extends Component{
         this.setState({
             mode: 'interest_grid'
         })
+    }
+
+    _showActionSheet = () => {
+        const { profile : { is_self } } = this.props;
+        if(is_self){
+            this.actionSheet.show();
+        }
+    }
+
+    _handleSheetPress = (index) => {
+        const { logout } = this.props;
+        if(index === 1){
+            logout();
+        }
     }
 }
 
