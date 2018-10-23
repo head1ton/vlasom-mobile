@@ -55,11 +55,9 @@ class Container extends Component{
             isFetching: true
         });
         if(text === ""){
-            console.log('empty')
             getEmptySearch();
         }
         else{
-            console.log('no')
             searchTag(text);
         }
     }

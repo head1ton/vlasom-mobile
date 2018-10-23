@@ -1,6 +1,28 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { Component } from 'react';
+import { CameraRoll } from 'react-native';
+import LibraryScreen from './presenter';
 
-const LibraryScreen = props => <Text>Album</Text>
+class Container extends Component{
+    state = {
+        photo: null,
+        pickedPhoto: null
+    }
 
-export default LibraryScreen;
+    componentDidMount = async() => {
+        const { cameraPhotos } = await CameraRoll.getPhotos({
+            first: 5,
+            assetType: 'Photos'
+        });
+        console.log('hi')
+        console.log(cameraPhotos);
+    }
+
+    render(){
+        return (
+            <LibraryScreen />
+        )
+    }
+
+}
+
+export default Container;

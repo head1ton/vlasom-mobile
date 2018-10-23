@@ -15,8 +15,6 @@ class CameraScreen extends Component{
 
     componentDidMount = async  () => {
         const camera = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
-        console.log('camera');
-        console.log(camera);
         this.setState({
             hasCameraPermissions: camera.permissions.camera.status === 'granted' && camera.permissions.cameraRoll.status === 'granted' ? true : false
         })
@@ -116,6 +114,7 @@ class CameraScreen extends Component{
                     quality: 1,
                     exif: true
                 })
+                console.log(takenPhoto)
                 this.setState({
                     picture: takenPhoto.uri,
                     pictureTaken: true
