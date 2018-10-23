@@ -9,7 +9,8 @@ class Container extends Component{
 
     static propTypes = {
         feed: PropTypes.array,
-        getFeed: PropTypes.func.isRequired
+        getFeed: PropTypes.func.isRequired,
+        initApp: PropTypes.func.isRequired
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -18,6 +19,11 @@ class Container extends Component{
                 isFetching: false
             })
         }
+    }
+
+    componentDidMount(){
+        const { initApp } = this.props;
+        initApp();
     }
 
     render(){

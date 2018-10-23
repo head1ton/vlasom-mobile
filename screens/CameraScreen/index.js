@@ -14,9 +14,11 @@ class CameraScreen extends Component{
     }
 
     componentDidMount = async  () => {
-        const camera = await Permissions.askAsync(Permissions.CAMERA);
+        const camera = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
+        console.log('camera');
+        console.log(camera);
         this.setState({
-            hasCameraPermissions: camera.status === 'granted' ? true : false
+            hasCameraPermissions: camera.permissions.camera.status === 'granted' && camera.permissions.cameraRoll.status === 'granted' ? true : false
         })
     }
 
@@ -132,7 +134,7 @@ class CameraScreen extends Component{
     _appovePhoto = async () => {
         const { picture } = this.state;
         const saveResult = await CameraRoll.saveToCameraRoll(picture, 'photo');
-        this.state({
+        this.setState({
             picture: null,
             pictureTaken: false
         })
