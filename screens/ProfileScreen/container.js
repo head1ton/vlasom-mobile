@@ -11,7 +11,7 @@ class Container extends Component{
     render(){
         const { loginUser, getMyProfile } = this.props;
         return(
-            <Profile profile={loginUser} refresh={getMyProfile} />
+            <Profile profile={loginUser} refresh={getMyProfile} showInterest={true} />
         )
     }
 }

@@ -22,7 +22,8 @@ class Container extends Component{
         refresh: PropTypes.func.isRequired,
         logout: PropTypes.func.isRequired,
         followUser: PropTypes.func.isRequired,
-        unfollowUser: PropTypes.func.isRequired
+        unfollowUser: PropTypes.func.isRequired,
+        showInterest: PropTypes.bool.isRequired
     }
 
     componentDidMount(){

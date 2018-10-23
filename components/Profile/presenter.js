@@ -53,7 +53,7 @@ const Profile = props => (
                 <Text style={styles.numberText}>followings</Text>
             </View>
         </View>
-        <View style={props.profile.is_self ? styles.modeBar : styles.modeBarSm}>
+        <View style={props.showInterest ? styles.modeBar : styles.modeBarSm}>
             <TouchableOpacity onPressOut={props.changeToUpload}>
                 <View>
                     <Ionicons name={'ios-albums-outline'} size={30} color={props.mode === 'upload' ? '#d5426a' : 'black'} />
@@ -64,13 +64,13 @@ const Profile = props => (
                     <Ionicons name={'ios-albums'} size={30} color={props.mode === 'upload_grid' ? '#d5426a' : 'black'} />
                 </View>
             </TouchableOpacity>
-            {props.profile.is_self && 
+            {props.showInterest && 
             <TouchableOpacity onPressOut={props.changeToInterest}>
                 <View>
                     <Ionicons name={'ios-book-outline'} size={30} color={props.mode === 'interest' ? '#d5426a' : 'black'} />
                 </View>
             </TouchableOpacity>}
-            {props.profile.is_self && 
+            {props.showInterest && 
             <TouchableOpacity onPressOut={props.changeToInterestGrid}>
                 <View>
                     <Ionicons name={'ios-book'} size={30} color={props.mode === 'interest_grid' ? '#d5426a' : 'black'} />
@@ -87,7 +87,7 @@ const Profile = props => (
                 {props.profile.images ? props.profile.images.map(photo => <Photo key={photo.id} {...photo} />) : <Text style={styles.notFound}>업로드한 이미지가 없습니다.</Text>}
             </View>
         )}
-        {props.profile.is_self && props.mode === 'interest' && (
+        {props.showInterest && props.mode === 'interest' && (
             <View style={styles.squaerContainer}>
                 {props.profile.interest_set && props.profile.interest_set.map(interest => {
                     if(interest.image){
@@ -96,7 +96,7 @@ const Profile = props => (
                 }) }
             </View>
         )}
-        {props.profile.is_self && props.mode === 'interest_grid' && (
+        {props.showInterest && props.mode === 'interest_grid' && (
             <View style={styles.gridContainer}>
                 {props.profile.interest_set && props.profile.interest_set.map(interest => {
                     if(interest.image){
@@ -334,7 +334,8 @@ Profile.propTypes = {
     changeToInterestGrid: PropTypes.func,
     mode: PropTypes.string.isRequired,
     showActionSheet: PropTypes.func.isRequired,
-    handleFollowPress: PropTypes.func.isRequired
+    handleFollowPress: PropTypes.func.isRequired,
+    showInterest: PropTypes.bool.isRequired
 }
 
 export default Profile;

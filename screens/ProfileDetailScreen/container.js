@@ -21,7 +21,7 @@ class Container extends Component{
 
     render(){
         return(
-            <Profile {...this.state} refresh={this._getUserProfile} />
+            <Profile {...this.state} refresh={this._getUserProfile} showInterest={false} />
         )
     }
 
