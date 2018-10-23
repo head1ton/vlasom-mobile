@@ -78,7 +78,12 @@ Notifications.propTypes = {
         name: PropTypes.string.isRequired,
         nickname: PropTypes.string.isRequired,
         profile_image: PropTypes.string,
-        username: PropTypes.string.isRequired
+        username: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        post_count: PropTypes.number.isRequired,
+        follower_count: PropTypes.number.isRequired,
+        following_count: PropTypes.number.isRequired,
+        is_self: PropTypes.bool.isRequired
     }).isRequired,
     id: PropTypes.number.isRequired,
     image: PropTypes.shape({
@@ -93,7 +98,12 @@ Notifications.propTypes = {
         name: PropTypes.string.isRequired,
         nickname: PropTypes.string.isRequired,
         profile_image: PropTypes.string,
-        username: PropTypes.string.isRequired
+        username: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        post_count: PropTypes.number.isRequired,
+        follower_count: PropTypes.number.isRequired,
+        following_count: PropTypes.number.isRequired,
+        is_self: PropTypes.bool.isRequired
     }).isRequired,
     isFollowing: PropTypes.bool.isRequired,
     handleFollowPress: PropTypes.func.isRequired
