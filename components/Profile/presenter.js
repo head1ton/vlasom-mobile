@@ -53,7 +53,7 @@ const Profile = props => (
                 <Text style={styles.numberText}>followings</Text>
             </View>
         </View>
-        <View style={styles.modeBar}>
+        <View style={props.profile.is_self ? styles.modeBar : styles.modeBarSm}>
             <TouchableOpacity onPressOut={props.changeToUpload}>
                 <View>
                     <Ionicons name={'ios-albums-outline'} size={30} color={props.mode === 'upload' ? '#d5426a' : 'black'} />
@@ -64,16 +64,18 @@ const Profile = props => (
                     <Ionicons name={'ios-albums'} size={30} color={props.mode === 'upload_grid' ? '#d5426a' : 'black'} />
                 </View>
             </TouchableOpacity>
+            {props.profile.is_self && 
             <TouchableOpacity onPressOut={props.changeToInterest}>
                 <View>
                     <Ionicons name={'ios-book-outline'} size={30} color={props.mode === 'interest' ? '#d5426a' : 'black'} />
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity>}
+            {props.profile.is_self && 
             <TouchableOpacity onPressOut={props.changeToInterestGrid}>
                 <View>
                     <Ionicons name={'ios-book'} size={30} color={props.mode === 'interest_grid' ? '#d5426a' : 'black'} />
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity>}
         </View>
         {props.mode === 'upload' && (
             <View style={styles.squaerContainer}>
@@ -85,7 +87,7 @@ const Profile = props => (
                 {props.profile.images ? props.profile.images.map(photo => <Photo key={photo.id} {...photo} />) : <Text style={styles.notFound}>업로드한 이미지가 없습니다.</Text>}
             </View>
         )}
-        {props.mode === 'interest' && (
+        {props.profile.is_self && props.mode === 'interest' && (
             <View style={styles.squaerContainer}>
                 {props.profile.interest_set && props.profile.interest_set.map(interest => {
                     if(interest.image){
@@ -94,7 +96,7 @@ const Profile = props => (
                 }) }
             </View>
         )}
-        {props.mode === 'interest_grid' && (
+        {props.profile.is_self && props.mode === 'interest_grid' && (
             <View style={styles.gridContainer}>
                 {props.profile.interest_set && props.profile.interest_set.map(interest => {
                     if(interest.image){
@@ -188,6 +190,15 @@ const styles = StyleSheet.create({
         marginTop: 20,
         paddingVertical: 10,
         paddingHorizontal: 60,
+        justifyContent: 'space-between',
+    },
+    modeBarSm: {
+        flexDirection: 'row',
+        borderTopColor: '#c0c1c2',
+        borderTopWidth: 1,
+        marginTop: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 120,
         justifyContent: 'space-between',
     },
     squaerContainer: {

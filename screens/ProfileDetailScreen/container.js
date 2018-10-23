@@ -15,15 +15,25 @@ class Container extends Component{
     })
 
     componentDidMount(){
-        const { getUserProfile } = this.props;
-        const { profile : { username } } = this.state;
-        getUserProfile(username);
+        this._getUserProfile();
+        console.log(this.state)
     }
 
     render(){
         return(
-            <Profile {...this.state} />
+            <Profile {...this.state} refresh={this._getUserProfile} />
         )
+    }
+
+    _getUserProfile = async() => {
+        const { getUserProfile } = this.props;
+        const { profile : { username } } = this.state;
+        const completeProfile = await getUserProfile(username);
+        if(completeProfile.username){
+            this.setState({
+                profile: completeProfile
+            })
+        }
     }
 }
 
