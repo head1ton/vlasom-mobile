@@ -39,6 +39,7 @@ const Photo = props => (
         handleLike={props.handleLike} 
         handleInterest={props.handleInterest} 
         commentCount={props.commentCount} 
+        photoId={props.id}
         />
             <View style={styles.comment}>
                 <Text style={styles.commentNickname}>

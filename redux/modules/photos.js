@@ -180,9 +180,27 @@ function getPhotoDetail(photoId){
             return response.json()
         })
         .then(json => {
-            console.log(json)
             return json
         })
+    }
+}
+
+function getPhotoLikes(photoId){
+    return (dispatch, getState) => {
+        const { user : { token } } = getState();
+         return fetch(`${API_URL}/images/${photoId}/like/`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(logout());
+            }
+            return response.json();
+        })
+        .then(json => json);
     }
 }
 
@@ -225,7 +243,8 @@ const actionCreators = {
     interestPhoto,
     uninterestPhoto,
     searchByTag,
-    getPhotoDetail
+    getPhotoDetail,
+    getPhotoLikes
 }
 
 export { actionCreators }

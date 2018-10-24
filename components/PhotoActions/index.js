@@ -12,7 +12,7 @@ const PhotoActions = props => (
                     <Ionicons name={props.isLiked ? "ios-heart" : 'ios-heart-outline'} size={30} color={props.isLiked ? '#d5426a' : 'black' } />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPressOut={() => props.navigation.navigate('Likes')}>
+            <TouchableOpacity onPressOut={() => props.navigation.navigate('Likes', {photoId: props.photoId})}>
                 <View>
                     <Text style={styles.likes}>{props.likeCount} {props.likeCount === 1 ? 'like' : 'likes'}</Text>
                 </View>
@@ -48,7 +48,8 @@ PhotoActions.propTypes = {
     interestCount: PropTypes.number.isRequired,
     commentCount: PropTypes.number.isRequired,
     handleLike: PropTypes.func.isRequired,
-    handleInterest: PropTypes.func.isRequired
+    handleInterest: PropTypes.func.isRequired,
+    photoId: PropTypes.number.isRequired
 }
 
 const styles = StyleSheet.create({
