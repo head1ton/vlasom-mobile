@@ -79,19 +79,19 @@ const Profile = props => (
         </View>
         {props.mode === 'upload' && (
             <View style={styles.squaerContainer}>
-                {props.profile.images ? props.profile.images.map(photo => <SquarePhoto key={photo.id} imageURL={photo.image} />) : <Text style={styles.notFound}>업로드한 이미지가 없습니다.</Text>}
+                {props.profile.images && props.profile.images.map(photo => <SquarePhoto key={photo.id} imageURL={photo.image} photoId={photo.id} />)}
             </View>
         )}
         {props.mode === 'upload_grid' && (
             <View style={styles.gridContainer}>
-                {props.profile.images ? props.profile.images.map(photo => <Photo key={photo.id} {...photo} />) : <Text style={styles.notFound}>업로드한 이미지가 없습니다.</Text>}
+                {props.profile.images && props.profile.images.map(photo => <Photo key={photo.id} {...photo} />)}
             </View>
         )}
         {props.showInterest && props.mode === 'interest' && (
             <View style={styles.squaerContainer}>
                 {props.profile.interest_set && props.profile.interest_set.map(interest => {
                     if(interest.image){
-                        return <SquarePhoto key={interest.image.id} imageURL={interest.image.image} />
+                        return <SquarePhoto key={interest.image.id} imageURL={interest.image.image} photoId={photo.id} />
                     }
                 }) }
             </View>

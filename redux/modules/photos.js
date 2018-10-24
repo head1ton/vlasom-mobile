@@ -164,6 +164,28 @@ function uninterestPhoto(photoId){
     }
 }
 
+function getPhotoDetail(photoId){
+    return (dispatch, getState) => {
+        const { user : { token } } = getState();
+        return fetch(`${API_URL}/images/${photoId}/`,{
+            method: 'GET',
+            headers: {
+                "Authorization": `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout())
+            }
+            return response.json()
+        })
+        .then(json => {
+            console.log(json)
+            return json
+        })
+    }
+}
+
 const initialState = {
 
 }
@@ -202,7 +224,8 @@ const actionCreators = {
     unlikePhoto,
     interestPhoto,
     uninterestPhoto,
-    searchByTag
+    searchByTag,
+    getPhotoDetail
 }
 
 export { actionCreators }

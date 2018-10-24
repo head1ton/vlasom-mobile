@@ -41,21 +41,21 @@ const Notifications = props => (
         </TouchableOpacity>
         )}
         {props.notification_type === 'like' && (
-        <TouchableOpacity onPressOut={() => props.navigation.navigate('Photo')}>
+        <TouchableOpacity onPressOut={() => props.navigation.navigate('Photo', {photoId: props.image.id})}>
             <FadeIn>
                 <Image source={{uri: props.image.image}} style={styles.image} />
             </FadeIn>
         </TouchableOpacity> 
         )}
         {props.notification_type === 'comment' && (
-        <TouchableOpacity onPressOut={() => props.navigation.navigate('Photo')}>
+        <TouchableOpacity onPressOut={() => props.navigation.navigate('Photo', {photoId: props.image.id})}>
             <FadeIn>
                 <Image source={{uri: props.image.image}} style={styles.image} />
             </FadeIn>
         </TouchableOpacity> 
         )}
         {props.notification_type === 'interest' && props.category === null  && (
-        <TouchableOpacity onPressOut={() => props.navigation.navigate('Photo')}>
+        <TouchableOpacity onPressOut={() => props.navigation.navigate('Photo', {photoId: props.image.id})}>
             <FadeIn>
                 <Image source={{uri: props.image.image}} style={styles.image} />
             </FadeIn>
@@ -87,7 +87,8 @@ Notifications.propTypes = {
     }).isRequired,
     id: PropTypes.number.isRequired,
     image: PropTypes.shape({
-        image: PropTypes.string.isRequired
+        image: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired
     }),
     is_viewed: PropTypes.bool.isRequired,
     natural_time: PropTypes.string.isRequired,
