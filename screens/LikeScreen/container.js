@@ -18,7 +18,6 @@ class Container extends Component{
         const users = await getPhotoLikes();
 
         if(users){
-            console.log(users)
             this.setState({
                 isFetching: false,
                 users: users

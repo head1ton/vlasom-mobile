@@ -91,7 +91,7 @@ const Profile = props => (
             <View style={styles.squaerContainer}>
                 {props.profile.interest_set && props.profile.interest_set.map(interest => {
                     if(interest.image){
-                        return <SquarePhoto key={interest.image.id} imageURL={interest.image.image} photoId={photo.id} />
+                        return <SquarePhoto key={interest.image.id} imageURL={interest.image.image} photoId={interest.image.id} />
                     }
                 }) }
             </View>

@@ -17,12 +17,12 @@ const PhotoActions = props => (
                     <Text style={styles.likes}>{props.likeCount} {props.likeCount === 1 ? 'like' : 'likes'}</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPressOut={() => props.navigation.navigate('Comments')}>
+            <TouchableOpacity onPressOut={() => props.navigation.navigate('Comments', {comments: props.comments, photoId: props.photoId})}>
                 <View style={styles.action}>
                     <Ionicons name={'ios-text-outline'} size={30} color={'black'} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPressOut={() => props.navigation.navigate('Comments')}>
+            <TouchableOpacity onPressOut={() => props.navigation.navigate('Comments', {comments: props.comments, photoId: props.photoId})}>
                 <View>
                     <Text style={styles.likes}>{props.commentCount} {props.commentCount === 1 ? 'comment' : 'comments'}</Text>
                 </View>
@@ -32,7 +32,7 @@ const PhotoActions = props => (
                     <Ionicons name={props.isInterested ? "ios-book" : 'ios-book-outline'} size={30} color={props.isInterested ? '#d5426a' : 'black' } />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPressOut={() => props.navigation.navigate('Likes')}>
+            <TouchableOpacity> 
                 <View>
                     <Text style={styles.likes}>{props.interestCount} {props.interestCount === 1 ? 'interest' : 'interests'}</Text>
                 </View>
@@ -49,7 +49,17 @@ PhotoActions.propTypes = {
     commentCount: PropTypes.number.isRequired,
     handleLike: PropTypes.func.isRequired,
     handleInterest: PropTypes.func.isRequired,
-    photoId: PropTypes.number.isRequired
+    photoId: PropTypes.number.isRequired,
+    comments: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            message: PropTypes.string.isRequired,
+            user: PropTypes.shape({
+                id: PropTypes.number.isRequired,
+            profile_image: PropTypes.string,
+            nickname: PropTypes.string.isRequired
+            })
+    }))
 }
 
 const styles = StyleSheet.create({

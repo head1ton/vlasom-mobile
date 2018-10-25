@@ -39,7 +39,8 @@ const Photo = props => (
         handleLike={props.handleLike} 
         handleInterest={props.handleInterest} 
         commentCount={props.commentCount} 
-        photoId={props.id}
+        photoId={props.id} 
+        comments={props.comments} 
         />
             <View style={styles.comment}>
                 <Text style={styles.commentNickname}>
@@ -48,7 +49,7 @@ const Photo = props => (
                 <Text style={styles.description}>{props.description}</Text>
             </View>
             {props.comments.length > 0 && (
-            <TouchableOpacity onPressOut={() => props.navigation.navigate('Comments')}>
+            <TouchableOpacity onPressOut={() => props.navigation.navigate('Comments', {comments: props.comments, photoId: props.id})}>
                 <View style={styles.commentsLink}>
                     {props.comments.length === 1 ? (
                         <Text style={styles.linkText}>View 1 comment</Text>
