@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, CameraRoll } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, CameraRoll, PermissionsAndroid } from 'react-native';
 import { Camera, Permissions } from 'expo';
 import { MaterialIcons } from '@expo/vector-icons';
 import FitImage from 'react-native-fit-image';
@@ -13,11 +13,23 @@ class CameraScreen extends Component{
         picture: null
     }
 
-    componentDidMount = async  () => {
-        const camera = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
+    componentWillMount = async() => {
+        
+        const camera = await Permissions.askAsync(Permissions.CAMERA);
+        const cameraRoll = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        const storage = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+            {
+              'title': 'Cool Photo App Camera Permission',
+              'message': 'Cool Photo App needs access to your camera ' +
+                         'so you can take awesome pictures.'
+            }
+          )
+       
         this.setState({
-            hasCameraPermissions: camera.permissions.camera.status === 'granted' && camera.permissions.cameraRoll.status === 'granted' ? true : false
+            hasCameraPermissions: camera.status === 'granted' && cameraRoll.status === 'granted' ? true : false
         })
+        
     }
 
     render(){
@@ -114,7 +126,6 @@ class CameraScreen extends Component{
                     quality: 1,
                     exif: true
                 })
-                console.log(takenPhoto)
                 this.setState({
                     picture: takenPhoto.uri,
                     pictureTaken: true

@@ -7,16 +7,16 @@ class Container extends Component{
         photo: null,
         pickedPhoto: null
     }
-
-    componentDidMount = async() => {
-        const { cameraPhotos } = await CameraRoll.getPhotos({
+    
+    componentWillMount = async() => {
+        const cameraPhotos = await CameraRoll.getPhotos({
             first: 5,
             assetType: 'Photos'
         });
         console.log('hi')
         console.log(cameraPhotos);
     }
-
+    
     render(){
         return (
             <LibraryScreen />
