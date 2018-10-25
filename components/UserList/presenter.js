@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
         borderBottomColor: '#c0c1c2',
         borderBottomWidth: StyleSheet.hairlineWidth,
         paddingVertical: 20,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        backgroundColor: 'white'
     },
     profileImage: {
         width: 50,

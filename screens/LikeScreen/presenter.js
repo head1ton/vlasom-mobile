@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import UserList from '../../components/UserList';
-import { View, ScrollView, RefreshControl, StyleSheet } from 'react-native';
+import { View, ScrollView, RefreshControl, StyleSheet, Text } from 'react-native';
 
 const LikeScreen = props => (
     <ScrollView refreshControl={<RefreshControl refreshing={props.isFetching} onRefresh={props.refresh} tintColor={'black'} />}>
         <View style={styles.container}>
-            {props.userList.map(user => (
+            {props.userList.length > 0 ? props.userList.map(user => (
                 <UserList key={user.id} {...user} />
-            ))}
+            )) : (
+                <View style={styles.notFound}>
+                    <Text style={styles.notFoundText}>아직 이사진을 좋아하는 사람이 없습니다.</Text>
+                </View>
+            )}
         </View>
     </ScrollView>
 )
@@ -35,7 +39,15 @@ LikeScreen.propTypes = {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+    },
+    notFound: {
+        backgroundColor: 'transparent',
+        marginTop: 20
+    },
+    notFoundText: {
+        textAlign: 'center',
+        fontWeight: '600',
+        fontSize: 14
     }
 })
 
