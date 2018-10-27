@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, CameraRoll, PermissionsAndroid } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, CameraRoll, StatusBar } from 'react-native';
 import { Camera, Permissions } from 'expo';
 import { MaterialIcons } from '@expo/vector-icons';
 import FitImage from 'react-native-fit-image';
@@ -35,6 +35,7 @@ class CameraScreen extends Component{
         else{
             return (
                 <View style={styles.container}>
+                <StatusBar hidden={true} />
                     {pictureTaken ? (
                         <View style={{flex: 4}}>
                             <FitImage 
@@ -135,7 +136,9 @@ class CameraScreen extends Component{
 
     _appovePhoto = async () => {
         const { picture } = this.state;
+        const { navigation : { navigate } } = this.props;
         const saveResult = await CameraRoll.saveToCameraRoll(picture, 'photo');
+        navigate('UploadPhoto', {url: picture});
         this.setState({
             picture: null,
             pictureTaken: false

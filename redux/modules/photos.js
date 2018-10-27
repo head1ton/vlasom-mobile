@@ -250,6 +250,24 @@ function commentOnImage(photoId, message){
     }
 }
 
+function allCategoryName(){
+    return (dispatch, getState) => {
+        const { user : {token} } = getState();
+        return fetch(`${API_URL}/images/category/all/name/`, {
+            headers: {
+                "Authorization": `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            }
+            return response.json();
+        })
+        .then(json => json);
+    }
+};
+
 const initialState = {
 
 }
@@ -292,7 +310,8 @@ const actionCreators = {
     getPhotoDetail,
     getPhotoLikes,
     getPhotoComments,
-    commentOnImage
+    commentOnImage,
+    allCategoryName
 }
 
 export { actionCreators }

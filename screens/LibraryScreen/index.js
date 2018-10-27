@@ -4,25 +4,38 @@ import LibraryScreen from './presenter';
 
 class Container extends Component{
     state = {
-        photo: null,
+        photos: null,
         pickedPhoto: null
     }
     
     componentWillMount = async() => {
         const cameraPhotos = await CameraRoll.getPhotos({
-            first: 5,
+            first: 200,
             assetType: 'Photos'
         });
-        console.log('hi')
-        console.log(cameraPhotos);
+        this.setState({
+            photos: cameraPhotos.edges,
+            pickedPhoto: cameraPhotos.edges[0]
+        })
     }
     
     render(){
         return (
-            <LibraryScreen />
+            <LibraryScreen {...this.state} pickPhoto={this._pickPhoto} approvePhoto={this._approvePhoto} />
         )
     }
 
+    _pickPhoto =(photo) => {
+        this.setState({
+            pickedPhoto: photo
+        })
+    }
+
+    _approvePhoto = () => {
+        const { pickedPhoto } = this.state;
+        const { navigation : { navigate } } = this.props;
+        navigate('UploadPhoto', {url: pickedPhoto.node.image.uri})
+    }
 }
 
 export default Container;
