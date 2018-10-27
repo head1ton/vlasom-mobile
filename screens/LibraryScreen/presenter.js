@@ -25,6 +25,11 @@ const LibraryScreen = props => (
                     {props.photos.map((photo,index) => (
                         <TouchableOpacity key={index} onPressOut={() => props.pickPhoto(photo)}>
                             <FitImage source={{uri: photo.node.image.uri}} style={styles.smallPhoto} />
+                            {photo.node.image.uri === props.pickedPhoto.node.image.uri && (
+                                <View style={styles.selected}>
+                                    <MaterialIcons name={'check'} size={40} color={'white'} />
+                                </View>
+                            )}
                         </TouchableOpacity>
                     ))}
                 </ScrollView>
@@ -51,6 +56,17 @@ const styles = StyleSheet.create({
     smallPhoto: {
         width: width/3,
         height: width/3
+    },
+    selected: {
+        width: width/3,
+        height: width/3,
+        backgroundColor: 'black',
+        opacity: 0.7,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     action: {
         backgroundColor: 'transparent',
