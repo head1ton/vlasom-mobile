@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions, TextInput, KeyboardAvoidingView } from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import PhotoActions from '../PhotoActions';
 import { withNavigation } from 'react-navigation'
@@ -40,7 +40,7 @@ const Photo = props => (
         handleInterest={props.handleInterest} 
         commentCount={props.commentCount} 
         photoId={props.id} 
-        comments={props.comments} 
+        comments={props.commentList} 
         />
             <View style={styles.comment}>
                 <Text style={styles.commentNickname}>
@@ -48,12 +48,41 @@ const Photo = props => (
                 </Text>
                 <Text style={styles.description}>{props.description}</Text>
             </View>
-            {props.comments.length > 0 && (
-            <TouchableOpacity onPressOut={() => props.navigation.navigate('Comments', {comments: props.comments, photoId: props.id})}>
+            {props.commentList.length > 0 && (
+                props.commentList.map((comment, index) => {
+                    if(index < 5){
+                        return(
+                        <View style={styles.comment} key={comment.id}>
+                            <Text style={styles.commentNickname}>
+                                {comment.user.nickname}
+                            </Text>
+                            <Text style={styles.description}>{comment.message}</Text>
+                        </View>
+                    )}
+                })
+            )}
+            <KeyboardAvoidingView style={{flex: 1}} enabled={true} behavior={'padding'} keyboardVerticalOffset={65}>
+            <View style={styles.comment}>
+                <TextInput 
+                placeholder={'comment'} 
+                style={styles.commentInput} 
+                returnKeyType={'send'}
+                onChangeText={props.changeText} 
+                value={props.newComment} 
+                onEndEditing={props.handleSubmit} 
+                underlineColorAndroid={'transparent'} 
+                autoCapitalize={'none'} 
+                autoCorrect={false} 
+                multiline={true} 
+                />
+            </View>
+            </KeyboardAvoidingView>
+            {props.commentList.length > 0 && (
+            <TouchableOpacity onPressOut={() => props.navigation.navigate('Comments', {comments: props.commentList, photoId: props.id})}>
                 <View style={styles.commentsLink}>
                     {props.comments.length === 1 ? (
                         <Text style={styles.linkText}>View 1 comment</Text>
-                    ): <Text style={styles.linkText}>View all {props.comments.length} comments</Text>}
+                    ): <Text style={styles.linkText}>View all {props.commentCount} comments</Text>}
                 </View>
             </TouchableOpacity>
             )}
@@ -97,7 +126,20 @@ Photo.propTypes = {
     }).isRequired,
     is_vertical: PropTypes.bool.isRequired,
     handleLike: PropTypes.func.isRequired,
-    handleInterest: PropTypes.func.isRequired
+    handleInterest: PropTypes.func.isRequired,
+    newComment: PropTypes.string.isRequired,
+    changeText: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    commentList: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            message: PropTypes.string.isRequired,
+            user: PropTypes.shape({
+                id: PropTypes.number.isRequired,
+            profile_image: PropTypes.string,
+            nickname: PropTypes.string.isRequired
+            })
+    }))
 }
 
 const styles = StyleSheet.create({
@@ -139,6 +181,9 @@ const styles = StyleSheet.create({
         marginRight: 5,
         fontWeight: '600',
         fontSize: 14
+    },
+    commentInput: {
+        width: width-20
     },
     description: {
         fontWeight: '400',

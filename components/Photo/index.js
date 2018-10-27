@@ -20,6 +20,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             else{
                 return dispatch(photoActions.interestPhoto(id))
             }
+        },
+        commentOnImage: (message) => {
+            return dispatch(photoActions.commentOnImage(id, message))
         }
     }
 }

@@ -17,14 +17,6 @@ class CameraScreen extends Component{
         
         const camera = await Permissions.askAsync(Permissions.CAMERA);
         const cameraRoll = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-        const storage = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-            {
-              'title': 'Cool Photo App Camera Permission',
-              'message': 'Cool Photo App needs access to your camera ' +
-                         'so you can take awesome pictures.'
-            }
-          )
        
         this.setState({
             hasCameraPermissions: camera.status === 'granted' && cameraRoll.status === 'granted' ? true : false

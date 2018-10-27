@@ -10,17 +10,20 @@ class Container extends Component{
             likeCount: props.like_count,
             isInterested: props.is_interested_image,
             interestCount: props.interest_count_image,
-            commentCount: props.comment_count
+            commentCount: props.comment_count,
+            newComment: "",
+            commentList: props.comments
         }
     }
     static propTypes = {
         dispatchLike: PropTypes.func.isRequired,
-        dispatchInterest: PropTypes.func.isRequired
+        dispatchInterest: PropTypes.func.isRequired,
+        commentOnImage: PropTypes.func.isRequired
     }
 
     render(){
         return (
-            <Photo handleLike={this._handleLike} handleInterest={this._handleInterest} {...this.props} {...this.state} />
+            <Photo handleLike={this._handleLike} handleInterest={this._handleInterest} changeText={this._changeText} handleSubmit={this._handleSubmit} {...this.props} {...this.state} commentCount={this.state.commentCount} />
         )
     }
 
@@ -64,6 +67,26 @@ class Container extends Component{
                     isInterested: true,
                     interestCount: prevState.interestCount + 1
                 }
+            })
+        }
+    }
+
+    _changeText = (text) => {
+        this.setState({
+            newComment: text
+        })
+    }
+    
+    _handleSubmit = async() => {
+        const { commentOnImage } = this.props;
+        const { newComment, commentCount, commentList } = this.state;
+        const commentResult = await commentOnImage(newComment);
+        if(commentResult){
+            commentList.push(commentResult)
+            this.setState({
+                commentCount: commentCount + 1,
+                newComment: "",
+                commentList
             })
         }
     }

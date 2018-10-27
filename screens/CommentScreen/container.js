@@ -8,18 +8,20 @@ class Container extends Component{
         const { navigation : { state : { params : { comments } } } } = props;
         this.state = {
             comments,
-            isFetching: false
+            isFetching: false,
+            newComment: ""
         }
     }
 
     static propTypes = {
-        getPhotoComments: PropTypes.func.isRequired
+        getPhotoComments: PropTypes.func.isRequired,
+        commentOnImage: PropTypes.func.isRequired
     }
 
     render(){
-        const { comments, isFetching } = this.state;
+        const { comments, isFetching, newComment } = this.state;
         return (
-            <CommentScreen comments={comments} isFetching={isFetching} refresh={this._refresh} />
+            <CommentScreen newComment={newComment} comments={comments} isFetching={isFetching} refresh={this._refresh} changeText={this._changeText} handleSubmit={this._handleSubmit} />
         )
     }
 
@@ -33,6 +35,25 @@ class Container extends Component{
             comments: newCommentList,
             isFetching: false
         })
+    }
+
+    _changeText = (text) => {
+        this.setState({
+            newComment: text
+        })
+    }
+    
+    _handleSubmit = async() => {
+        const { commentOnImage } = this.props;
+        const { newComment, comments } = this.state;
+        const commentResult = await commentOnImage(newComment);
+        if(commentResult){
+            comments.push(commentResult)
+            this.setState({
+                newComment: "",
+                comments
+            })
+        }
     }
 }
 

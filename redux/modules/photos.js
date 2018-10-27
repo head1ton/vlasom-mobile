@@ -223,6 +223,33 @@ function getPhotoComments(photoId){
     }
 }
 
+function commentOnImage(photoId, message){
+    return (dispatch, getState) => {
+        const { user : { token } } = getState();
+        return fetch(`${API_URL}/images/${photoId}/comments/`, {
+            method: 'POST',
+            headers: {
+                "Authorization": `JWT ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message
+            })
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(logout());
+            }
+            return response.json()
+        })
+        .then(json => {
+            if(json.message){
+                return json;
+            }
+        })
+    }
+}
+
 const initialState = {
 
 }
@@ -264,7 +291,8 @@ const actionCreators = {
     searchByTag,
     getPhotoDetail,
     getPhotoLikes,
-    getPhotoComments
+    getPhotoComments,
+    commentOnImage
 }
 
 export { actionCreators }

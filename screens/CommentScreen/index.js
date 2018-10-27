@@ -7,6 +7,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         getPhotoComments: () => {
             return dispatch(photoActions.getPhotoComments(photoId));
+        },
+        commentOnImage: (message) => {
+            return dispatch(photoActions.commentOnImage(photoId, message))
         }
     }
 }
