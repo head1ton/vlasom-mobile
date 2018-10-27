@@ -1,5 +1,6 @@
 import { API_URL } from '../../constants';
 import { actionCreators as userActions } from './user';
+import uuidv1 from 'uuid/v1';
 
 const SET_FEED = 'SET_FEED';
 const SET_SEARCH = 'SET_SEARCH';
@@ -268,6 +269,45 @@ function allCategoryName(){
     }
 };
 
+function uploadPhoto(image, category, location, description, tags){
+    const tagsArray = tags.split(",");
+    const data = new FormData();
+    data.append('category',category);
+    data.append('location',location);
+    data.append('description',description);
+    data.append('tags',JSON.stringify(tagsArray));
+    data.append('image',{
+        uri: image,
+        type: 'image/jpeg',
+        name: `${uuidv1()}.jpg`
+    });
+    return (dispatch, getState) => {
+        const { user : { token } } = getState();
+        return fetch(`${API_URL}/images/`,{
+            method: 'POST',
+            headers: {
+                "Authorization": `JWT ${token}`,
+                "Content-Type": 'multipart/form-data'
+            },
+            body: data
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            }
+            else if(response.ok){
+                dispatch(getFeed());
+                dispatch(userActions.getMyProfile())
+                return true
+            }
+            else{
+                return false
+            }
+        })
+        .then(json => json);
+    }
+}
+
 const initialState = {
 
 }
@@ -311,7 +351,8 @@ const actionCreators = {
     getPhotoLikes,
     getPhotoComments,
     commentOnImage,
-    allCategoryName
+    allCategoryName,
+    uploadPhoto
 }
 
 export { actionCreators }

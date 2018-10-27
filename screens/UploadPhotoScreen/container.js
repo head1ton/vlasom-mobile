@@ -5,7 +5,7 @@ import UploadPhotoScreen from './presenter';
 
 class Container extends Component{
     state = {
-        category: "",
+        category: -1,
         location: "",
         description: "",
         tags: "",
@@ -15,7 +15,8 @@ class Container extends Component{
     }
 
     static propTypes = {
-        allCategoryName: PropTypes.func.isRequired
+        allCategoryName: PropTypes.func.isRequired,
+        uploadPhoto: PropTypes.func.isRequired
     }
 
     componentWillMount = async() => {
@@ -48,7 +49,6 @@ class Container extends Component{
         this.setState({
             category: value
         })
-        console.log(this.state.category)
     }
 
     _onLocationChange = (text) => {
@@ -69,12 +69,26 @@ class Container extends Component{
         })
     }
 
-    _submit = () => {
+    _submit = async() => {
         const { category, location, description, tags } = this.state;
+        const { uploadPhoto } = this.props;
+        const { navigation, navigation : { state : { params : { url } } } } = this.props;
         if(category && location && description && tags){
             this.setState({
                 isSubmitting: true
-            })
+            });
+            const uploadResult = await uploadPhoto(url, category, location, description, tags);
+            if (uploadResult){
+                navigation.goBack(null);
+                navigation.goBack(null);
+                navigation.goBack(null);
+            }
+            else{
+                this.setState({
+                    isSubmitting: false
+                })
+                Alert.alert('내용을 확인해주세요')
+            }
         }
         else{
             Alert.alert('내용을 작성해 주세요.')

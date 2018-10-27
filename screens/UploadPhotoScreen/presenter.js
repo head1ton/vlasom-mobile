@@ -31,7 +31,7 @@ const UploadPhotoScreen = props => (
                 >
                 <Picker.Item label="선택해주세요" value="" />
                 {props.categorys.map(category => (
-                    <Picker.Item key={category.id} label={category.name} value={category.name} />
+                    <Picker.Item key={category.id} label={category.name} value={category.id} />
                 ))}
                 </Picker>
             </View>
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
 
 UploadPhotoScreen.propTypes = {
     imageURL: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
+    category: PropTypes.number.isRequired,
     location: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     tags: PropTypes.string.isRequired,
