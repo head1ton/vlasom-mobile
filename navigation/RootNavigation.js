@@ -5,6 +5,7 @@ import TakePhotoScreen from '../screens/TakePhotoScreen';
 import TabNavigation from './TabNavigation';
 import UploadPhotoScreen from './../screens/UploadPhotoScreen';
 import AddPhotoNavigation from './AddPhotoNavigation';
+import TakeOnlyNavigation from './TakeOnlyNavigation';
 
 const RootNavigation = createStackNavigator({
     Tabs: {
@@ -31,6 +32,12 @@ const RootNavigation = createStackNavigator({
                 color: 'white'
             }
         })
+    },
+    TakePhotoOnly: {
+        screen: TakeOnlyNavigation,
+        navigationOptions: {
+            header: null
+        }
     }
 },
 {

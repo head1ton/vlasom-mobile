@@ -17,6 +17,11 @@ const LibraryScreen = props => (
                         <MaterialIcons name={'check'} size={40} color={'white'} />
                     </View>
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.action2} onPressOut={props.withPhoto}>
+                    <View>
+                        <MaterialIcons name={'close'} size={40} color={'white'} />
+                    </View>
+                </TouchableOpacity>
             </View>
         )}
         {props.photos && (
@@ -76,6 +81,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 10,
         right: 10
+    },
+    action2: {
+        backgroundColor: 'transparent',
+        width: 40,
+        height: 40,
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        bottom: 10,
+        left: 10
     }
 })
 
@@ -83,7 +97,8 @@ LibraryScreen.propTypes = {
     pickedPhoto: PropTypes.object,
     photos: PropTypes.array,
     approvePhoto: PropTypes.func.isRequired,
-    pickPhoto: PropTypes.func.isRequired
+    pickPhoto: PropTypes.func.isRequired,
+    withPhoto: PropTypes.func.isRequired
 }
 
 export default LibraryScreen;

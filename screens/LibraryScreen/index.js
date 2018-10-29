@@ -21,7 +21,7 @@ class Container extends Component{
     
     render(){
         return (
-            <LibraryScreen {...this.state} pickPhoto={this._pickPhoto} approvePhoto={this._approvePhoto} />
+            <LibraryScreen {...this.state} pickPhoto={this._pickPhoto} approvePhoto={this._approvePhoto} withPhoto={this._withPhoto} />
         )
     }
 
@@ -35,6 +35,12 @@ class Container extends Component{
         const { pickedPhoto } = this.state;
         const { navigation : { navigate } } = this.props;
         navigate('UploadPhoto', {url: pickedPhoto.node.image.uri})
+    }
+
+    _withPhoto = () => {
+        const { pickedPhoto } = this.state;
+        const { navigation : { navigate } } = this.props;
+        navigate('TakePhotoOnly', {url: pickedPhoto.node.image.uri})
     }
 }
 
