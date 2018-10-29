@@ -8,7 +8,6 @@ class TakeOnlyCameraScreen extends Component{
     constructor(props){
         super(props);
         const { navigation : { state : { params : { url } } } } = props;
-        console.log(url)
         this.state = {
             hasCameraPermissions: null,
             type: Camera.Constants.Type.back,

@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import HomeRoute from '../routes/HomeRoute';
 import SearchRoute from '../routes/SearchRoute';
-import NotificationRoute from '../routes/NotificationRoute';
+import InterestListRoute from '../routes/InterestListRoute';
 import ProfileRoute from '../routes/ProfileRoute';
 
 const TabNavigation = createBottomTabNavigator({
@@ -35,8 +35,8 @@ const TabNavigation = createBottomTabNavigator({
             }
         })
     },
-    Notification: {
-        screen: NotificationRoute,
+    InterestList: {
+        screen: InterestListRoute,
         navigationOptions: {
             tabBarIcon: ({focused}) => (
                 <Ionicons name={focused ? 'ios-heart' : 'ios-heart-outline'} size={30} color={'white'} />

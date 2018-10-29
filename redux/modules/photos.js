@@ -4,6 +4,7 @@ import uuidv1 from 'uuid/v1';
 
 const SET_FEED = 'SET_FEED';
 const SET_SEARCH = 'SET_SEARCH';
+const SET_INTEREST = 'SET_INTEREST';
 
 function setFeed(feed){
     return {
@@ -16,6 +17,13 @@ function setSearch(search){
     return {
         type: SET_SEARCH,
         search
+    }
+}
+
+function setInterest(interest){
+    return {
+        type: SET_INTEREST,
+        interest
     }
 }
 
@@ -308,6 +316,26 @@ function uploadPhoto(image, category, location, description, tags){
     }
 }
 
+function getInterestList(){
+    return (dispatch, getState) => {
+        const { user : { token } } = getState();
+        fetch(`${API_URL}/images/interest/list/`, {
+            headers: {
+                'Authorization': `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            }
+            return response.json()
+        })
+        .then(json => {
+            return dispatch(setInterest(json))
+        })
+    }
+}
+
 const initialState = {
 
 }
@@ -318,6 +346,8 @@ function reducer(state = initialState, action){
             return applySetFeed(state, action);
         case SET_SEARCH:
             return applySetSearch(state, action);
+        case SET_INTEREST:
+            return applySetInterest(state, action);
         default:
             return state;
     }
@@ -339,6 +369,14 @@ function applySetSearch(state, action){
     }
 }
 
+function applySetInterest(state, action){
+    const { interest } = action;
+    return {
+        ...state,
+        interest
+    }
+}
+
 const actionCreators = {
     getFeed,
     getSearch,
@@ -352,7 +390,8 @@ const actionCreators = {
     getPhotoComments,
     commentOnImage,
     allCategoryName,
-    uploadPhoto
+    uploadPhoto,
+    getInterestList
 }
 
 export { actionCreators }

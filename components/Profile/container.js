@@ -45,7 +45,6 @@ class Container extends Component{
 
     render(){
         const { isFetching, mode, isFollowing } = this.state;
-        console.log(this.props.profile);
         return (
             <View style={{flex: 1}}>
                 <Profile {...this.props} mode={mode} isFollowing={isFollowing} isFetching={isFetching} showActionSheet={this._showActionSheet} changeToUpload={this._changeToUpload} changeToInterest={this._changeToInterest} changeToUploadGrid={this._changeToUploadGrid} changeToInterestGrid={this._changeTointerestGrid} handleFollowPress={this._handleFollowPress} />
