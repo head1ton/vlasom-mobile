@@ -14,6 +14,9 @@ const HomeRoute = createStackNavigator({
             ),
             headerLeft: (
                 <NavButton iconName={'ios-camera-outline'} onPress={() => navigation.navigate('TakePhoto')} color={'white'} />
+            ),
+            headerRight: (
+                <NavButton iconName={'ios-menu'} onPress={() => navigation.navigate('Menu')} color={'white'} />
             )
         })
     },
