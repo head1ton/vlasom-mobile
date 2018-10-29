@@ -4,7 +4,6 @@ import { createStackNavigator } from 'react-navigation';
 import TakePhotoScreen from '../screens/TakePhotoScreen';
 import TabNavigation from './TabNavigation';
 import UploadPhotoScreen from './../screens/UploadPhotoScreen';
-import MenuScreen from '../screens/MenuScreen';
 import AddPhotoNavigation from './AddPhotoNavigation';
 import TakeOnlyNavigation from './TakeOnlyNavigation';
 
@@ -38,19 +37,6 @@ const RootNavigation = createStackNavigator({
         screen: TakeOnlyNavigation,
         navigationOptions: {
             header: null
-        }
-    },
-    Menu: {
-        screen: MenuScreen,
-        navigationOptions: {
-            title: 'Menu',
-            headerLeft: props => <NavButton {...props} iconName={"ios-arrow-back"} color={'white'} />,
-            headerStyle: {
-                backgroundColor: '#d5426a',
-            },
-            headerTitleStyle: {
-                color: 'white'
-            }
         }
     }
 },

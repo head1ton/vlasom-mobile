@@ -4,6 +4,7 @@ import CommentScreen from '../screens/CommentScreen';
 import ProfileDetailScreen from '../screens/ProfileDetailScreen';
 import PhotoScreen from '../screens/PhotoScreen';
 import NavButton from '../components/NavButton';
+import MenuScreen from '../screens/MenuScreen';
 
 const sharedRoutes = {
     Likes: {
@@ -25,6 +26,19 @@ const sharedRoutes = {
         screen : PhotoScreen,
         navigationOptions: {
             headerTitle: 'Photo'
+        }
+    },
+    Menu: {
+        screen: MenuScreen,
+        navigationOptions: {
+            title: 'Menu',
+            headerLeft: props => <NavButton {...props} iconName={"ios-arrow-back"} color={'white'} />,
+            headerStyle: {
+                backgroundColor: '#d5426a',
+            },
+            headerTitleStyle: {
+                color: 'white'
+            }
         }
     }
 };
