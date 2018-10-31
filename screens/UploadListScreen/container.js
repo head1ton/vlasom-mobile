@@ -7,17 +7,13 @@ class Container extends Component{
         isFetching: false
     }
 
-    static defaultProps = {
-        interest: []
-    }
-
     static propTypes = {
-        getInterestList: PropTypes.func.isRequired,
-        interest: PropTypes.array
+        loginUser: PropTypes.object.isRequired,
+        getMyProfile: PropTypes.func.isRequired,
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.interest){
+        if(nextProps.loginUser){
             this.setState({
                 isFetching: false
             })
@@ -31,11 +27,11 @@ class Container extends Component{
     }
 
     _refresh = () => {
-        const { getInterestList } = this.props;
+        const { getMyProfile } = this.props;
         this.setState({
             isFetching: true
         })
-        getInterestList();
+        getMyProfile();
     }
 }
 

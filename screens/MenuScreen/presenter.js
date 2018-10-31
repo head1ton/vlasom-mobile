@@ -70,6 +70,7 @@ class MenuScreen extends Component{
     }
 
     render(){
+        const { navigation : { navigate } } = this.props;
         return(
             <View style={styles.container}>
                 <TouchableOpacity style={styles.navCategory} onPressOut={this._handleCollapseProfile}>
@@ -79,7 +80,7 @@ class MenuScreen extends Component{
                 </TouchableOpacity>
                 <View style={[styles.content, {height: this.state.updatedHeightProfile, zIndex: 1}]}>
                     {this.props.profileList.map((profile, index) => (
-                        <TouchableOpacity key={index}>
+                        <TouchableOpacity key={index} onPressOut={index === 0 ? () => navigate('Profile') : index === 1 ? () => navigate('InterestList'): index === 2 ? () => navigate('UploadList') : null}>
                         <View style={[styles.contentItem]}>
                             <Text>{profile}</Text>
                         </View>

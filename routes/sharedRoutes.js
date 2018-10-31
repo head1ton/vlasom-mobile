@@ -5,6 +5,7 @@ import ProfileDetailScreen from '../screens/ProfileDetailScreen';
 import PhotoScreen from '../screens/PhotoScreen';
 import NavButton from '../components/NavButton';
 import MenuScreen from '../screens/MenuScreen';
+import UploadListScreen from '../screens/UploadListScreen';
 
 const sharedRoutes = {
     Likes: {
@@ -32,6 +33,19 @@ const sharedRoutes = {
         screen: MenuScreen,
         navigationOptions: {
             title: 'Menu',
+            headerLeft: props => <NavButton {...props} iconName={"ios-arrow-back"} color={'white'} />,
+            headerStyle: {
+                backgroundColor: '#d5426a',
+            },
+            headerTitleStyle: {
+                color: 'white'
+            }
+        }
+    },
+    UploadList: {
+        screen: UploadListScreen,
+        navigationOptions: {
+            title: 'Uploaded',
             headerLeft: props => <NavButton {...props} iconName={"ios-arrow-back"} color={'white'} />,
             headerStyle: {
                 backgroundColor: '#d5426a',
