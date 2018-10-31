@@ -5,9 +5,12 @@ import sharedRoutes, { sharedOptions } from './sharedRoutes';
 const NotificationRoute = createStackNavigator({
     Notification: {
         screen: NotificationScreen,
-        navigationOptions: {
-            headerTitle: 'Notifications'
-        }
+        navigationOptions: ({navigation}) => ({
+            headerTitle: 'Notifications',
+            headerRight: (
+                <NavButton iconName={'ios-menu'} onPress={() => navigation.navigate('Menu')} color={'white'} />
+            )
+        })
     },
     ...sharedRoutes
 },
