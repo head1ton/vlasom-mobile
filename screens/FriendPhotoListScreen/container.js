@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ActivityIndicator, View } from 'react-native';
-import CategoryListScreen from './presenter';
+import FriendPhotoListScreen from './presenter';
 
 class Container extends Component{
     state = {
@@ -10,12 +10,8 @@ class Container extends Component{
     }
 
     static propTypes = {
-        getCategoryImage: PropTypes.func.isRequired,
+        getCategoryImage: PropTypes.func.isRequired
     }
-
-    static navigationOptions = ({navigation}) => ({
-        title: navigation.state.params.categoryName
-    })
 
     componentDidMount = async() => {
         const { getCategoryImage } = this.props;
@@ -27,7 +23,7 @@ class Container extends Component{
     }
 
     render(){
-        const { isFetching, images } = this.state;
+        const { isFetching } = this.state;
         if(isFetching){
             return(
                 <View style={[{flex: 1}, {alignItems: 'center'}, {justifyContent: 'center'}]}>
@@ -37,7 +33,7 @@ class Container extends Component{
         }
         else{
             return (
-                <CategoryListScreen {...this.state} {...this.props} refresh={this._refresh} />
+                <FriendPhotoListScreen {...this.state} {...this.props} refresh={this._refresh} />
             )
         }
     }
