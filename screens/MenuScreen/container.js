@@ -7,6 +7,11 @@ import ActionSheet from 'react-native-actionsheet';
 const options = ['Cancel', 'Logout']
 const CANCEL_INDEX = 0;
 const DESTRUCTIVE_INDEX = 1;
+const profileList = [
+    '프로필',
+    '관심목록',
+    '업로드목록'
+]
 
 class Container extends Component{
     static propTypes = {
@@ -25,7 +30,7 @@ class Container extends Component{
     render(){
         return(
             <View style={{flex: 1}}>
-                <MenuScreen {...this.props} showActionSheet={this._showActionSheet} />
+                <MenuScreen {...this.props} showActionSheet={this._showActionSheet} profileList={profileList} />
                 <ActionSheet ref={actionSheet => (this.actionSheet = actionSheet)} options={options} cancelButtonIndex={CANCEL_INDEX} destructiveButtonIndex={DESTRUCTIVE_INDEX} onPress={this._handleSheetPress} />
             </View>
         )
