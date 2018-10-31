@@ -5,13 +5,13 @@ import SquarePhoto from '../../components/SquarePhoto';
 
 const { width, height } = Dimensions.get('window');
 
-const UploadListScreen = props => (
+const CategoryListScreen = props => (
     <ScrollView refreshControl={<RefreshControl refreshing={props.isFetching} onRefresh={props.refresh} tintColor={'black'} />} >
         <View style={styles.container}>
-            {props.loginUser.images.legnth === 0 && <Text style={styles.notFound}>Nothing found</Text>}
-            {props.loginUser.images.length > 0 && props.loginUser.images.map(upload => {
-                if(upload.image){
-                    return <SquarePhoto key={upload.id} imageURL={upload.image} photoId={upload.id} />
+            {props.images.length === 0 && <Text style={styles.notFound}>Nothing found</Text>}
+            {props.images.length > 0 && props.images.map(image => {
+                if(image.image){
+                    return <SquarePhoto key={image.id} imageURL={image.image} photoId={image.id} />
                 }
             })}
         </View>
@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
     }
 })
 
-UploadListScreen.propTypes = {
+CategoryListScreen.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     refresh: PropTypes.func.isRequired,
-    loginUser: PropTypes.object
+    images: PropTypes.array
 }
 
-export default UploadListScreen;
+export default CategoryListScreen;

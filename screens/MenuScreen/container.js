@@ -10,7 +10,8 @@ const DESTRUCTIVE_INDEX = 1;
 const profileList = [
     '프로필',
     '관심목록',
-    '업로드목록'
+    '업로드목록',
+    '알림'
 ]
 
 class Container extends Component{

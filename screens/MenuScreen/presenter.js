@@ -80,7 +80,7 @@ class MenuScreen extends Component{
                 </TouchableOpacity>
                 <View style={[styles.content, {height: this.state.updatedHeightProfile, zIndex: 1}]}>
                     {this.props.profileList.map((profile, index) => (
-                        <TouchableOpacity key={index} onPressOut={index === 0 ? () => navigate('Profile') : index === 1 ? () => navigate('InterestList'): index === 2 ? () => navigate('UploadList') : null}>
+                        <TouchableOpacity key={index} onPressOut={index === 0 ? () => navigate('Profile') : index === 1 ? () => navigate('InterestList'): index === 2 ? () => navigate('UploadList') : index === 3 ? () => navigate('Notification') : null}>
                         <View style={[styles.contentItem]}>
                             <Text>{profile}</Text>
                         </View>
@@ -94,7 +94,7 @@ class MenuScreen extends Component{
                 </TouchableOpacity>
                 <View style={[styles.content, {height: this.state.updatedHeightCategory, zIndex: 1}]}>
                     {this.props.categoryName.map(category => (
-                        <TouchableOpacity key={category.id}>
+                        <TouchableOpacity key={category.id} onPressOut={() => navigate('CategoryList', {categoryName: category.name})}>
                         <View style={[styles.contentItem]}>
                             <Text>{category.name}</Text>
                         </View>

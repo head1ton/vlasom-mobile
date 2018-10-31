@@ -6,6 +6,8 @@ import PhotoScreen from '../screens/PhotoScreen';
 import NavButton from '../components/NavButton';
 import MenuScreen from '../screens/MenuScreen';
 import UploadListScreen from '../screens/UploadListScreen';
+import NotificationScreen from '../screens/NotificationScreen';
+import CategoryListScreen from '../screens/CategoryListScreen';
 
 const sharedRoutes = {
     Likes: {
@@ -32,28 +34,23 @@ const sharedRoutes = {
     Menu: {
         screen: MenuScreen,
         navigationOptions: {
-            title: 'Menu',
-            headerLeft: props => <NavButton {...props} iconName={"ios-arrow-back"} color={'white'} />,
-            headerStyle: {
-                backgroundColor: '#d5426a',
-            },
-            headerTitleStyle: {
-                color: 'white'
-            }
+            headerTitle: 'Menu'
         }
     },
     UploadList: {
         screen: UploadListScreen,
         navigationOptions: {
-            title: 'Uploaded',
-            headerLeft: props => <NavButton {...props} iconName={"ios-arrow-back"} color={'white'} />,
-            headerStyle: {
-                backgroundColor: '#d5426a',
-            },
-            headerTitleStyle: {
-                color: 'white'
-            }
+            headerTitle: 'Uploaded'
         }
+    },
+    Notification: {
+        screen: NotificationScreen,
+        navigationOptions: {
+            headerTitle: 'Notifications'
+        }
+    },
+    CategoryList: {
+        screen: CategoryListScreen
     }
 };
 

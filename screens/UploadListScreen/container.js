@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import InterestListScreen from './presenter';
+import UploadListScreen from './presenter';
 
 class Container extends Component{
     state = {
@@ -22,7 +22,7 @@ class Container extends Component{
 
     render(){
         return (
-            <InterestListScreen {...this.state} {...this.props} refresh={this._refresh} />
+            <UploadListScreen {...this.state} {...this.props} refresh={this._refresh} />
         )
     }
 

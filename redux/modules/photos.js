@@ -283,7 +283,25 @@ function allCategoryName(){
         })
         .then(json => json);
     }
-};
+}
+
+function getCategoryImage(categoryName){
+    return (dispatch, getState) => {
+        const { user : { token } } = getState();
+        return fetch(`${API_URL}/images/category/images/${categoryName}/`, {
+            headers: {
+                "Authorization": `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            }
+            return response.json();
+        })
+        .then(json => json);
+    }
+}
 
 function uploadPhoto(image, category, location, description, tags){
     const tagsArray = tags.split(",");
@@ -428,7 +446,8 @@ const actionCreators = {
     allCategoryName,
     uploadPhoto,
     getInterestList,
-    getCategory
+    getCategory,
+    getCategoryImage
 }
 
 export { actionCreators }
