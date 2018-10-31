@@ -1,5 +1,6 @@
 import { createMaterialTopTabNavigator } from 'react-navigation';
 import TakeOnlyCameraScreen from '../screens/TakeOnlyCameraScreen';
+import InterestPhotoListScreen from '../screens/InterestPhotoListScreen';
 
 const TakeOnlyNavigation = createMaterialTopTabNavigator(
     {
@@ -7,6 +8,12 @@ const TakeOnlyNavigation = createMaterialTopTabNavigator(
             screen: TakeOnlyCameraScreen,
             navigationOptions: {
                 tabBarLabel: 'Photo'
+            }
+        },
+        InterestPhotoList: {
+            screen: InterestPhotoListScreen,
+            navigationOptions: {
+                tabBarLabel: 'Interest'
             }
         }
     },

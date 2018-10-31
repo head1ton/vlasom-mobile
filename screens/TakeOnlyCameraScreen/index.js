@@ -28,9 +28,19 @@ class TakeOnlyCameraScreen extends Component{
         })
         
     }
+    
+    componentWillReceiveProps(nextProps){
+        if(nextProps.navigation.state.params.url){
+            const { navigation : { state : { params : { url } } } } = this.props;
+            this.setState({
+                url
+            })
+        }
+    }
 
     render(){
         const { hasCameraPermissions, type, flash, pictureTaken, picture, url } = this.state;
+        console.log(url)
         if(hasCameraPermissions === null){
             return <View />;
         }
@@ -69,9 +79,9 @@ class TakeOnlyCameraScreen extends Component{
                                 </View>
                             </TouchableOpacity>
                         </Camera>
-                        {url && (
+                        {url !== '' && (
                             <View style={styles.overlay}>
-                            <FitImage source={{uri: url}} style={styles.overlayImage} />
+                                <FitImage source={{uri: url}} style={styles.overlayImage} />
                             </View>
                         )}
                         </View>

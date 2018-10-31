@@ -28,10 +28,10 @@ const TabNavigation = createBottomTabNavigator({
         screen: View,
         navigationOptions: ({navigation}) => ({
             tabBarIcon: () => (
-                <Ionicons name='ios-add-circle-outline' size={30} color={'white'} />
+                <Ionicons name='ios-camera-outline' size={30} color={'white'} />
             ),
             tabBarOnPress: () => {
-                navigation.navigate('TakePhoto')
+                navigation.navigate('TakeOnly', {url: ''})
             }
         })
     },
