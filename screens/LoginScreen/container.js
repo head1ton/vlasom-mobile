@@ -19,7 +19,7 @@ class Container extends Component{
         header: null
     })
     render(){
-        return <LoginScreen {...this.state} changeUsername={this._changeUsername} changePassword={this._changePassword} submit={this._submit} facebookLogin={this._handleFBLogin} />
+        return <LoginScreen {...this.state} changeUsername={this._changeUsername} changePassword={this._changePassword} submit={this._submit} facebookLogin={this._handleFBLogin} handleSignup={this._handleSignup} />
     }
 
     _changeUsername = (text) => {
@@ -67,6 +67,11 @@ class Container extends Component{
                 isSubmitting: false
             })
         }
+    }
+
+    _handleSignup = () => {
+        const { navigation : { navigate } } = this.props;
+        navigate('Signup');
     }
 };
 

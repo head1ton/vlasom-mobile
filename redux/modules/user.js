@@ -98,6 +98,86 @@ function usernameLogin(username, password){
     }
 }
 
+function createAccount(username, password, email, nickname){
+    return function(dispatch){
+        return fetch(`${API_URL}/rest-auth/registration/`, {
+           method: 'POST',
+           headers: {
+               "Content-Type": "application/json"
+           },
+           body: JSON.stringify({
+               username,
+               password1: password,
+               password2: password,
+               email,
+               nickname
+           })
+        })
+        .then(response => response.json())
+        .then(json => {
+            if(json.token && json.user){
+                dispatch(setLogin(json.token))
+                dispatch(setUser(json.user));
+                return true
+            }
+            else{
+                return false
+            }
+        })
+        .catch(err => console.log(err));
+    }
+}
+
+function doCheckEmail(email){
+    return (dispatch) => {
+        return fetch(`${API_URL}/users/check/email/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email
+            })
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            }
+            else if(response.status === 202){
+                return true
+            }
+            else if(response.status === 203){
+                return false
+            }
+        })
+    }
+}
+
+function doCheckUsername(username){
+    return (dispatch) => {
+        return fetch(`${API_URL}/users/check/username/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username
+            })
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            }
+            else if(response.status === 202){
+                return true
+            }
+            else if(response.status === 203){
+                return false
+            }
+        })
+    }
+}
+
 function getNotifications(){
     return (dispatch, getState) => {
         const { user: { token } } = getState();
@@ -277,7 +357,10 @@ const actionCreators = {
     getMyProfile,
     followUser,
     unfollowUser,
-    getUserProfile
+    getUserProfile,
+    createAccount,
+    doCheckEmail,
+    doCheckUsername
 };
 
 export { actionCreators };

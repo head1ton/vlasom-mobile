@@ -18,7 +18,7 @@ const Profile = props => (
                 </FadeIn>
             </TouchableOpacity>
             <View style={styles.infoText}>
-                <Text style={styles.name}>{props.profile.name}</Text>
+                <Text style={styles.name}>{props.profile.nickname}</Text>
                 <Text style={styles.description}>{props.profile.description ? props.profile.description : '아직 소개글이 없습니다.'}</Text>
                 {props.profile.is_self ? (
                 <View style={styles.btnContainer}>

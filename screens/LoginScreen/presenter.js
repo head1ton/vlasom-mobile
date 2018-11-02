@@ -38,7 +38,7 @@ const LoginScreen = props => (
                 </View>
             </TouchableOpacity>
             <View style={styles.row}>
-                <TouchableOpacity style={styles.column}>
+                <TouchableOpacity style={styles.column} onPressOut={props.handleSignup}>
                     <View style={styles.textCenter}>
                         <Text style={styles.authText}>회원가입</Text>
                     </View>
@@ -81,7 +81,8 @@ LoginScreen.propTypes = {
     changeUsername: PropTypes.func.isRequired,
     changePassword: PropTypes.func.isRequired,
     submit: PropTypes.func.isRequired,
-    facebookLogin: PropTypes.func.isRequired
+    facebookLogin: PropTypes.func.isRequired,
+    handleSignup: PropTypes.func.isRequired
 }
 
 const styles =StyleSheet.create({
