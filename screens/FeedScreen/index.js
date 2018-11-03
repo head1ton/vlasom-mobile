@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(photoActions.getCategory());
             dispatch(userActions.getNotifications());
             dispatch(userActions.getMyProfile());
+        },
+        getFeedMore: (page) => {
+            return dispatch(photoActions.getFeedMore(page))
         }
     }
 }

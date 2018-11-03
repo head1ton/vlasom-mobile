@@ -3,6 +3,7 @@ import { actionCreators as userActions } from './user';
 import uuidv1 from 'uuid/v1';
 
 const SET_FEED = 'SET_FEED';
+const SET_FEED_MORE = 'SET_FEED_MORE';
 const SET_SEARCH = 'SET_SEARCH';
 const SET_INTEREST = 'SET_INTEREST';
 const SET_CATEGORY = 'SET_CATEGORY';
@@ -11,6 +12,13 @@ function setFeed(feed){
     return {
         type: SET_FEED,
         feed
+    }
+}
+
+function setFeedMore(feedMore){
+    return {
+        type: SET_FEED_MORE,
+        feedMore
     }
 }
 
@@ -50,6 +58,38 @@ function getFeed(){
             return response.json();
         })
         .then(json => dispatch(setFeed(json)));
+    }
+}
+
+function getFeedMore(page){
+    return (dispatch, getState) => {
+        const { user: { token } } = getState();
+        return fetch(`${API_URL}/images/?page=${page}`, {
+            headers: {
+                "Authorization": `JWT ${token}`
+            }
+        })
+        .then(response => {
+            if(response.status === 401){
+                dispatch(userActions.logout());
+            }
+            if(!(response.status === 404)){
+                return response.json()
+            }
+            else{
+                return JSON.stringify({
+                    NotFound: true
+                })
+            }
+        })
+        .then(json => {
+            if(json.NotFound){
+                return false
+            }
+            else{
+                return json
+            }
+        })
     }
 }
 
@@ -388,6 +428,8 @@ function reducer(state = initialState, action){
     switch(action.type){
         case SET_FEED:
             return applySetFeed(state, action);
+        case SET_FEED_MORE:
+            return applySetFeedMore(state, action);
         case SET_SEARCH:
             return applySetSearch(state, action);
         case SET_INTEREST:
@@ -404,6 +446,14 @@ function applySetFeed(state, action){
     return {
         ...state,
         feed
+    }
+}
+
+function applySetFeedMore(state, action){
+    const { feedMore } = action;
+    return {
+        ...state,
+        feed: [...state.feed, ...feedMore]
     }
 }
 
@@ -447,7 +497,8 @@ const actionCreators = {
     uploadPhoto,
     getInterestList,
     getCategory,
-    getCategoryImage
+    getCategoryImage,
+    getFeedMore
 }
 
 export { actionCreators }

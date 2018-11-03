@@ -10,13 +10,6 @@ class AppContainer extends Component {
         initApp: PropTypes.func.isRequired
     };
 
-    componentDidMount(){
-        const { isLoggedIn, initApp } = this.props;
-        if(isLoggedIn){
-            initApp();
-        }
-    }
-
     render(){
         const { isLoggedIn, loginUser } = this.props;
         return(

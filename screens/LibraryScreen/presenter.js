@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text ,StyleSheet, Dimensions, ScrollView, TouchableOpacity, Image, StatusBar } from 'react-native';
+import { View, Text ,StyleSheet, Dimensions, ScrollView, TouchableOpacity, Image, StatusBar, ActivityIndicator } from 'react-native';
 import FitImage from 'react-native-fit-image';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -38,6 +38,17 @@ const LibraryScreen = props => (
                         </TouchableOpacity>
                     ))}
                 </ScrollView>
+                {props.hasNextPage && (
+                    <TouchableOpacity onPressOut={props.morePhoto}>
+                        <View style={styles.more}>
+                        {props.isGettingPhotos ? (
+                            <ActivityIndicator size='small' color='black' />
+                        ):(
+                            <Text style={styles.moreText}>더보기</Text>
+                        )}
+                        </View>
+                    </TouchableOpacity>
+                    )}
             </View>
         )}
     </View>
@@ -90,6 +101,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 10,
         left: 10
+    },
+    more: {
+        paddingVertical: 15
+    },
+    moreText: {
+        textAlign: 'center',
+        fontSize: 14,
+        fontWeight: '600',
     }
 })
 
@@ -98,7 +117,10 @@ LibraryScreen.propTypes = {
     photos: PropTypes.array,
     approvePhoto: PropTypes.func.isRequired,
     pickPhoto: PropTypes.func.isRequired,
-    withPhoto: PropTypes.func.isRequired
+    withPhoto: PropTypes.func.isRequired,
+    hasNextPage: PropTypes.bool.isRequired,
+    morePhoto: PropTypes.func.isRequired,
+    isGettingPhotos: PropTypes.bool.isRequired
 }
 
 export default LibraryScreen;
